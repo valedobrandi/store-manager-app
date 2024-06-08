@@ -4,6 +4,7 @@ const sinonChai = require('sinon-chai');
 const productsMock = require('../../mocks/product.mock');
 const productsController = require('../../../src/controllers/products.controller');
 const productsService = require('../../../src/services/products.service');
+const middlewares = require('../../../src/middlewares/validateProducts');
 
 const { expect } = chai;
 chai.use(sinonChai);
@@ -68,7 +69,7 @@ describe('UNIT TEST - PRODUCT CONTROLLER', function () {
   });
 
   it('5 - Register a product with CREATED', async function () {
-    sinon.stub(productsService, 'searchEveryProduct')
+    sinon.stub(productsService, 'registerProduct')
       .resolves({ status: 'CREATED', data: productsMock.registerProductReturnFromDB });
 
     const req = {
@@ -84,5 +85,20 @@ describe('UNIT TEST - PRODUCT CONTROLLER', function () {
 
     expect(res.status).to.have.been.calledWith(201);
     expect(res.json).to.have.been.calledWith(productsMock.registerProductReturnFromDB);
+  });
+
+  it('6 - Register a product without a name key', function () {
+    const next = sinon.stub().returns();
+
+    const req = { body: { date: '' } };
+      
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    
+    middlewares.validateRegisterProductFields(req, res, next);
+    expect(res.json).to.have.been.calledWith(sinon.match.has('message'));
+    expect(res.status).to.have.been.calledWith(400);
   });
 });

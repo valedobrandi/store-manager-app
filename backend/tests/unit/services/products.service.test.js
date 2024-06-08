@@ -43,4 +43,13 @@ describe('UNIT TEST - PRODUCT SERVICE', function () {
     expect(searchProducts.status).to.be.equal('CREATED');
     expect(searchProducts.data).to.be.deep.equal(productsMock.registerProductReturnFromDB);
   });
+
+  it('5 - Return a error when register a product name with less then 5 letters', async function () {
+    sinon.stub(productsModel, 'registerProduct').resolves(productsMock.registerProductReturnFromDB);
+   
+    const searchProducts = await productsService.registerProduct({ name: 'A' });
+    
+    expect(searchProducts.status).to.be.equal('INVALID_VALUE');
+    expect(searchProducts.data).to.be.deep.equal({ message: '"name" length must be at least 5 characters long' });
+  });
 });

@@ -26,4 +26,19 @@ describe('UNIT TEST - SALES MODEL', function () {
     expect(searchProductsById).to.be.an('array');
     expect(searchProductsById).to.be.deep.equal(salesMock.saleById);
   });
+
+  it('3 - Insert a new sale at DB', async function () {
+    sinon.stub(connection, 'execute')
+      .onFirstCall()
+      .resolves()
+      .onSecondCall()
+      .resolves([[{ id: '3' }]])
+      .onThirdCall()
+      .resolves([]);
+ 
+    const registerSale = await salesModal.registerSales(salesMock.registerSaleAtDB);
+    
+    expect(registerSale).to.be.an('object');
+    expect(registerSale).to.be.deep.equal(salesMock.returnRegisterSaleFromDB);
+  });
 });

@@ -2,8 +2,8 @@ const controllerValidation = require('../controllers/validations/validationInput
 
 const validateRegisterProductFields = (req, res, next) => {
   const { body } = req;
-  const travelError = controllerValidation.validateRegisterProduct(body);
-  if (travelError) return res.status(400).json({ message: travelError.message });
+  const error = controllerValidation.validateRegisterProduct(body);
+  if (error) return res.status(400).json({ message: error.message });
   next();
 };
 

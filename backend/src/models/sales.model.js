@@ -1,5 +1,6 @@
 const camelize = require('camelize');
 const connection = require('./connection');
+const format = require('../utils/generateFormattedQuery');
 
 const searchEverySale = async () => {
   const [sales] = await connection.execute(
@@ -25,7 +26,28 @@ const searchSaleById = async (saleId) => {
   return camelize(sale);
 };
 
+const registerSales = async (newSale) => {
+  await connection.execute(
+    'INSERT INTO sales (id, date) VALUES (DEFAULT, DEFAULT);',
+  );
+  const [[{ id }]] = await connection.execute('SELECT LAST_INSERT_ID() AS id');
+  
+  const newSaleInsert = newSale.map((sale) => ({ saleId: id, ...sale })); 
+  const saleQuery = { saleId: id, ...newSale[0] };
+  const columns = format.getFormattedColumnNames(saleQuery);
+  const placeholders = format.getFormattedPlaceholders(saleQuery);
+
+  const query = `INSERT INTO sales_products (${columns}) VALUE (${placeholders});`;
+  const tableValues = newSaleInsert.map((value) => Object.values(value));
+
+  const insertValues = tableValues.map((insert) => connection.execute(query, insert));
+  Promise.all(insertValues);
+
+  return { id, itemsSold: newSale };
+};
+
 module.exports = {
   searchEverySale,
   searchSaleById,
+  registerSales,
 };

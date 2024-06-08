@@ -34,4 +34,13 @@ describe('UNIT TEST - SALES SERVICE', function () {
     expect(searchProducts.status).to.be.equal('NOT_FOUND');
     expect(searchProducts.data).to.be.deep.equal({ message: 'Sale not found' });
   });
+
+  it('4 - Register a new sale', async function () {
+    sinon.stub(salesModel, 'registerSales').resolves(salesMock.returnRegisterSaleFromDB);
+
+    const registerSale = await salesService.register(salesMock.registerSaleAtDB);
+    
+    expect(registerSale.status).to.be.equal('CREATED');
+    expect(registerSale.data).to.be.deep.equal(salesMock.returnRegisterSaleFromDB);
+  });
 });

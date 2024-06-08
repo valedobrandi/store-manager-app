@@ -66,4 +66,23 @@ describe('UNIT TEST - SALES CONTROLLER', function () {
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(sinon.match.has('message'));
   });
+
+  it('5 - Register a sale', async function () {
+    sinon.stub(salesService, 'register')
+      .resolves({ status: 'CREATED', data: salesMock.returnRegisterSaleFromDB });
+
+    const req = {
+      body: salesMock.registerSaleAtDB,
+    };
+      
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+        
+    await salesController.register(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(salesMock.returnRegisterSaleFromDB);
+  });
 });
