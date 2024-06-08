@@ -1,7 +1,7 @@
 const chai = require('chai');
 const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
-const modelMock = require('../../mocks/product.mock');
+const productsMock = require('../../mocks/product.mock');
 const productsController = require('../../../src/controllers/products.controller');
 const productsService = require('../../../src/services/products.service');
 
@@ -14,7 +14,7 @@ describe('UNIT TEST - PRODUCT CONTROLLER', function () {
   });
   it('1 - Return every product', async function () {
     sinon.stub(productsService, 'searchEveryProduct')
-      .resolves({ status: 'SUCCESSFUL', data: modelMock.everyProduct });
+      .resolves({ status: 'SUCCESSFUL', data: productsMock.everyProduct });
 
     const req = {};
       
@@ -26,12 +26,12 @@ describe('UNIT TEST - PRODUCT CONTROLLER', function () {
     await productsController.findAll(req, res);
 
     expect(res.status).to.have.been.calledWith(200);
-    expect(res.json).to.have.been.calledWith(modelMock.everyProduct);
+    expect(res.json).to.have.been.calledWith(productsMock.everyProduct);
   });
 
   it('3 - Return a product by ID with SUCCESSFUL', async function () {
     sinon.stub(productsService, 'searchEveryProduct')
-      .resolves({ status: 'SUCCESSFUL', data: modelMock.singleProduct });
+      .resolves({ status: 'SUCCESSFUL', data: productsMock.singleProduct });
 
     const req = {
       params: { productId: '1' },
@@ -45,7 +45,7 @@ describe('UNIT TEST - PRODUCT CONTROLLER', function () {
     await productsController.findById(req, res);
 
     expect(res.status).to.have.been.calledWith(200);
-    expect(res.json).to.have.been.calledWith(modelMock.singleProduct);
+    expect(res.json).to.have.been.calledWith(productsMock.singleProduct);
   });
 
   it('4 - Return a product by ID with NOT_FOUND', async function () {
