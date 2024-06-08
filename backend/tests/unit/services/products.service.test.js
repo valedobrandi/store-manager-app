@@ -34,4 +34,13 @@ describe('UNIT TEST - PRODUCT SERVICE', function () {
     expect(searchProducts.status).to.be.equal('NOT_FOUND');
     expect(searchProducts.data).to.be.deep.equal({ message: 'Product not found' });
   });
+
+  it('4 - Register a product at products table', async function () {
+    sinon.stub(productsModel, 'registerProduct').resolves(productsMock.registerProductReturnFromDB);
+   
+    const searchProducts = await productsService.registerProduct(productsMock.registerProduct);
+    
+    expect(searchProducts.status).to.be.equal('CREATED');
+    expect(searchProducts.data).to.be.deep.equal(productsMock.registerProductReturnFromDB);
+  });
 });

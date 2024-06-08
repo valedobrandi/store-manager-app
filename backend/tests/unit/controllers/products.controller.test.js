@@ -66,4 +66,23 @@ describe('UNIT TEST - PRODUCT CONTROLLER', function () {
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(sinon.match.has('message'));
   });
+
+  it('5 - Register a product with CREATED', async function () {
+    sinon.stub(productsService, 'searchEveryProduct')
+      .resolves({ status: 'CREATED', data: productsMock.registerProductReturnFromDB });
+
+    const req = {
+      body: productsMock.registerProduct,
+    };
+      
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+        
+    await productsController.register(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(productsMock.registerProductReturnFromDB);
+  });
 });
