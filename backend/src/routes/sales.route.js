@@ -1,5 +1,6 @@
 const route = require('express').Router();
 const salesController = require('../controllers/sales.controller');
+const middlewares = require('../middlewares/validateSales');
 
 route.get(
   '',
@@ -13,6 +14,7 @@ route.get(
 
 route.post(
   '',
+  middlewares.validateRegisterSalesFields,
   salesController.register,
 );
 

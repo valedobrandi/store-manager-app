@@ -31,9 +31,9 @@ const registerSales = async (newSale) => {
     'INSERT INTO sales (id, date) VALUES (DEFAULT, DEFAULT);',
   );
   const [[{ id }]] = await connection.execute('SELECT LAST_INSERT_ID() AS id');
-  
+  const [saleKeys] = newSale;
   const newSaleInsert = newSale.map((sale) => ({ saleId: id, ...sale })); 
-  const saleQuery = { saleId: id, ...newSale[0] };
+  const saleQuery = { saleId: id, ...saleKeys };
   const columns = format.getFormattedColumnNames(saleQuery);
   const placeholders = format.getFormattedPlaceholders(saleQuery);
 

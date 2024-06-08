@@ -1,7 +1,9 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const salesMock = require('../../mocks/sales.mock');
+const productsMock = require('../../mocks/product.mock');
 const salesModel = require('../../../src/models/sales.model');
+const productModel = require('../../../src/models/products.model');
 const salesService = require('../../../src/services/sales.service');
 
 describe('UNIT TEST - SALES SERVICE', function () {
@@ -42,5 +44,16 @@ describe('UNIT TEST - SALES SERVICE', function () {
     
     expect(registerSale.status).to.be.equal('CREATED');
     expect(registerSale.data).to.be.deep.equal(salesMock.returnRegisterSaleFromDB);
+  });
+
+  it('5 - Register a new sale with a product inexistent', async function () {
+    sinon.stub(productModel, 'searchEveryProduct').resolves(productsMock.everyProduct);
+    sinon.stub(salesModel, 'registerSales').resolves();
+
+    const registerSale = await salesService
+      .register(salesMock.registerSaleAtDBWithProductIdInexistent);
+    
+    expect(registerSale.status).to.be.equal('NOT_FOUND');
+    expect(registerSale.data).to.be.deep.equal({ message: 'Product not found' });
   });
 });

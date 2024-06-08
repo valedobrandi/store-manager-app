@@ -38,6 +38,28 @@ const registerSaleAtDB = [
   },
 ];
 
+const registerSaleAtDBWithProductIdInexistent = [
+  {
+    productId: 999,
+    quantity: 1,
+  },
+  {
+    productId: 2,
+    quantity: 5,
+  },
+];
+
+const registerSaleAtDBWithoutKeyQuantity = [
+  {
+    productId: 1,
+    quantity: 1,
+  },
+  {
+    productId: 2,
+    quantity: 5,
+  },
+];
+
 const returnRegisterSaleFromDB = {
   id: '3',
   itemsSold: [
@@ -57,4 +79,6 @@ module.exports = {
   saleById,
   registerSaleAtDB,
   returnRegisterSaleFromDB,
+  registerSaleAtDBWithoutKeyQuantity,
+  registerSaleAtDBWithProductIdInexistent,
 };

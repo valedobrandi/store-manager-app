@@ -1,6 +1,6 @@
 const route = require('express').Router();
 const productsController = require('../controllers/products.controller');
-const validateProductInputs = require('../middlewares/validateProducts');
+const middlewares = require('../middlewares/validateProducts');
 
 route.get(
   '',
@@ -14,7 +14,7 @@ route.get(
 
 route.post(
   '',
-  validateProductInputs.validateRegisterProductFields,
+  middlewares.validateRegisterProductFields,
   productsController.register,
 );
 

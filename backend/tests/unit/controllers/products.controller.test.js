@@ -87,7 +87,9 @@ describe('UNIT TEST - PRODUCT CONTROLLER', function () {
     expect(res.json).to.have.been.calledWith(productsMock.registerProductReturnFromDB);
   });
 
-  it('6 - Register a product without a name key', function () {
+  it('6 - Register a product without a "name" input', function () {
+    sinon.stub(productsService, 'registerProduct')
+      .resolves();
     const next = sinon.stub().returns();
 
     const req = { body: { date: '' } };

@@ -4,6 +4,7 @@ const sinonChai = require('sinon-chai');
 const salesMock = require('../../mocks/sales.mock');
 const salesController = require('../../../src/controllers/sales.controller');
 const salesService = require('../../../src/services/sales.service');
+const middlewares = require('../../../src/middlewares/validateProducts');
 
 const { expect } = chai;
 chai.use(sinonChai);
@@ -84,5 +85,25 @@ describe('UNIT TEST - SALES CONTROLLER', function () {
 
     expect(res.status).to.have.been.calledWith(201);
     expect(res.json).to.have.been.calledWith(salesMock.returnRegisterSaleFromDB);
+  });
+
+  it('6 - Register a sale without input "Quantity"', async function () {
+    sinon.stub(salesService, 'register')
+      .resolves();
+    const next = sinon.stub().returns();
+
+    const req = {
+      body: salesMock.registerSaleAtDBWithoutKeyQuantity,
+    };
+      
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+        
+    middlewares.validateRegisterProductFields(req, res, next);
+
+    expect(res.status).to.have.been.calledWith(400);
+    expect(res.json).to.have.been.calledWith(sinon.match.has('message'));
   });
 });
