@@ -12,7 +12,13 @@ const validateRegisterSales = (keysObjectToValidate) => {
   }
 };
 
+const validateUpdateSalesProducts = (keysObjectToValidate) => {
+  const { error } = schema.updateQuantitySaleProduct.validate(keysObjectToValidate);
+  if (error) return { status: 'INVALID_VALUE', message: error.message };
+};
+
 module.exports = {
   validateRegisterProduct,
   validateRegisterSales,
+  validateUpdateSalesProducts,
 };

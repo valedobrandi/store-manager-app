@@ -7,6 +7,14 @@ const validateRegisterSalesFields = (req, res, next) => {
   next();
 };
 
+const validateUpdateQuantityFields = (req, res, next) => {
+  const { body } = req;
+  const error = controllerValidation.validateUpdaterSale(body);
+  if (error) return res.status(400).json({ message: error.message });
+  next();
+};
+
 module.exports = {
-  validateRegisterSalesFields, 
+  validateRegisterSalesFields,
+  validateUpdateQuantityFields, 
 };

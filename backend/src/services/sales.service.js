@@ -20,7 +20,6 @@ const searchSaleById = async (saleId) => {
 
 const register = async (newSale) => {
   const error = serviceValidate.validateRegisterSales(newSale);
-  console.log(error);
   if (error) {
     return { status: error.status, data: { message: error.message } };
   }
@@ -37,8 +36,46 @@ const register = async (newSale) => {
   return { status: 'CREATED', data: registerNewSale };
 };
 
+const deleteSale = async (saleId) => {
+  const removeProduct = await salesModel.deleteSale(saleId);
+  if (removeProduct === 0) {
+    return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+  }
+  return { status: 'DELETE', data: { removeProduct } };
+}; 
+
+const updateProductSaleQuantity = async (saleId, productId, body) => {
+  const error = serviceValidate.validateUpdateSalesProducts(body);
+  
+  if (error) {
+    return { status: error.status, data: { message: error.message } };
+  }
+
+  const sale = await salesModel.searchSaleById(saleId);
+  if (sale.length < 1) {
+    return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+  }
+  
+  const product = await productsModel.searchProductById(productId);
+
+  if (!product) {
+    return { status: 'NOT_FOUND', data: { message: 'Product not found in sale' } };
+  }
+  
+  await salesModel.updateSaleQuantity(saleId, productId, body.quantity);
+
+  const [{ date }] = sale;
+
+  return {
+    status: 'SUCCESSFUL', 
+    data: { date, saleId: +saleId, productId: +productId, quantity: +body.quantity }, 
+  };
+}; 
+
 module.exports = {
   searchEverySale,
   searchSaleById,
   register,
+  deleteSale,
+  updateProductSaleQuantity,
 };

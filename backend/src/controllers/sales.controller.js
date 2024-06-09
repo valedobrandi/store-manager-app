@@ -19,8 +19,25 @@ const register = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const remove = async (req, res) => {
+  const { id } = req.params;
+  const { status, data } = await salesService.deleteSale(id);
+  
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
+const update = async (req, res) => {
+  const { saleId, productId } = req.params;
+  const { body } = req;
+  const { status, data } = await salesService.updateProductSaleQuantity(saleId, productId, body);
+  
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   findAll,
   findById,
   register,
+  remove,
+  update,
 };

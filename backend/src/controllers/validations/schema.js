@@ -9,7 +9,11 @@ const registerSales = Joi.object({
   quantity: Joi.required(),
 });
 
+const updateQuantity = Joi.object({
+  quantity: Joi.required(),
+});
 module.exports = {
   registerProduct,
   registerSales,
+  updateQuantity,
 };

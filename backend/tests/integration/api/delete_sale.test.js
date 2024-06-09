@@ -8,32 +8,26 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('INTEGRATION TEST - DELETE /products/:id', function () {
+describe('INTEGRATION TEST - DELETE /sales/:id', function () {
   beforeEach(sinon.restore);
-  it('SERVER TEST', async function () {
-    const response = await chai.request(app).get('/');
-
-    expect(response.body).to.deep.equal({ status: 'Store Manager UP!' });
-  });
-
-  it('Delete un product from de the "product" table', async function () {
+  it('Delete a sale from de the "sales" table', async function () {
     sinon.stub(connection, 'execute').resolves([{ affectedRows: '1' }]);
 
     const PRODUCT_ID = 1;
 
     const response = await chai.request(app)
-      .delete(`/products/${PRODUCT_ID}`);
+      .delete(`/sales/${PRODUCT_ID}`);
 
     expect(response.status).to.be.eq(204);
   });
 
-  it('Delete un product from de the "product" table with "NOT_FOUND"', async function () {
+  it('Delete a sale from de the "sales" table with "NOT_FOUND"', async function () {
     sinon.stub(connection, 'execute').resolves([{ affectedRows: 0 }]);
 
-    const PRODUCT_ID = 1;
+    const PRODUCT_ID = 999;
 
     const response = await chai.request(app)
-      .delete(`/products/${PRODUCT_ID}`);
+      .delete(`/sales/${PRODUCT_ID}`);
 
     expect(response.status).to.be.eq(404);
   });

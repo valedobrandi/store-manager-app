@@ -27,7 +27,6 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
-  console.log('remove');
   const { id } = req.params;
   const { status, data } = await productsService.deleteProduct(id);
   
