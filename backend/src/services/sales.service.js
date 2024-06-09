@@ -70,7 +70,7 @@ const updateProductSaleQuantity = async (saleId, productId, body) => {
     status: 'SUCCESSFUL', 
     data: { date, saleId: +saleId, productId: +productId, quantity: +body.quantity }, 
   };
-}; 
+};
 
 module.exports = {
   searchEverySale,

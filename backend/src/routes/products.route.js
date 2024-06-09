@@ -3,6 +3,11 @@ const productsController = require('../controllers/products.controller');
 const middlewares = require('../middlewares/validateProducts');
 
 route.get(
+  '/search',
+  productsController.searchByName,
+);
+
+route.get(
   '',
   productsController.findAll,
 );

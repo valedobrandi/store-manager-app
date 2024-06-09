@@ -50,10 +50,21 @@ const deleteProduct = async (productId) => {
   return { status: 'DELETE', data: { removeProduct } };
 }; 
 
+const searchProductsByName = async (query) => {
+  if (!query) {
+    const allProducts = await productsModel.searchEveryProduct();
+    return { status: 'SUCCESSFUL', data: allProducts };
+  }
+  
+  const products = await productsModel.searchProductName(query);
+  return { status: 'SUCCESSFUL', data: products };
+}; 
+
 module.exports = {
   searchEveryProduct,
   searchProductById,
   registerProduct,
   updateProduct,
   deleteProduct,
+  searchProductsByName,
 };
