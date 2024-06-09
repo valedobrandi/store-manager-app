@@ -31,7 +31,7 @@ describe('UNIT TEST - PRODUCT CONTROLLER', function () {
   });
 
   it('3 - Return a product by ID with SUCCESSFUL', async function () {
-    sinon.stub(productsService, 'searchEveryProduct')
+    sinon.stub(productsService, 'searchProductById')
       .resolves({ status: 'SUCCESSFUL', data: productsMock.singleProduct });
 
     const req = {
@@ -102,5 +102,24 @@ describe('UNIT TEST - PRODUCT CONTROLLER', function () {
     middlewares.validateRegisterProductFields(req, res, next);
     expect(res.json).to.have.been.calledWith(sinon.match.has('message'));
     expect(res.status).to.have.been.calledWith(400);
+  });
+
+  it('7 - Update a product value', async function () {
+    sinon.stub(productsService, 'updateProduct').resolves(
+      { status: 'SUCCESSFUL', data: productsMock.singleProduct },
+    );
+
+    const req = {
+      params: { id: '1' },
+      body: { name: 'Martelo de Thor' }, 
+    };
+      
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    await productsController.update(req, res);
+    expect(res.json).to.have.been.calledWith(productsMock.singleProduct);
+    expect(res.status).to.have.been.calledWith(200);
   });
 });

@@ -27,8 +27,26 @@ const registerProduct = async (newProduct) => {
   return { status: 'CREATED', data: register };
 };
 
+const updateProduct = async (update, id) => {
+  const error = serviceValidate.validateRegisterProduct(update);
+  if (error) {
+    return { status: error.status, data: { message: error.message } };
+  }
+  
+  const product = await productsModel.searchProductById(id);
+
+  if (!product) {
+    return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
+  }
+
+  const productUpdate = await productsModel.updateProduct(update, id);
+
+  return { status: 'SUCCESSFUL', data: productUpdate };
+};
+
 module.exports = {
   searchEveryProduct,
   searchProductById,
   registerProduct,
+  updateProduct,
 };

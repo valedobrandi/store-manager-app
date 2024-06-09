@@ -18,4 +18,10 @@ route.post(
   productsController.register,
 );
 
+route.put(
+  '/:id',
+  middlewares.validateRegisterProductFields,
+  productsController.update,
+);
+
 module.exports = route;

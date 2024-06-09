@@ -52,4 +52,14 @@ describe('UNIT TEST - PRODUCT SERVICE', function () {
     expect(searchProducts.status).to.be.equal('INVALID_VALUE');
     expect(searchProducts.data).to.be.deep.equal({ message: '"name" length must be at least 5 characters long' });
   });
+
+  it('6 - Update a product value at the DB', async function () {
+    sinon.stub(productsModel, 'searchProductById').resolves(true);
+    sinon.stub(productsModel, 'registerProduct').resolves(productsMock.singleProduct);
+   
+    const updateProduct = await productsService.updateProduct({ name: 'ProdutoX' }, '1');
+    
+    expect(updateProduct.status).to.be.equal('SUCCESSFUL');
+    expect(updateProduct.data).to.be.deep.equal({ id: 1, name: 'ProdutoX' });
+  });
 });
