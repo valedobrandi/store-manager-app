@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const salesMock = require('../../mocks/sales.mock');
-const productsMock = require('../../mocks/product.mock');
+const salesMock = require('../mocks/sales.mock');
+const productsMock = require('../mocks/product.mock');
 const salesModel = require('../../../src/models/sales.model');
 const productModel = require('../../../src/models/products.model');
 const salesService = require('../../../src/services/sales.service');

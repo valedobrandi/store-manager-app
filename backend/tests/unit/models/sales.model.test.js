@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const connection = require('../../../src/models/connection');
-const salesMock = require('../../mocks/sales.mock');
+const salesMock = require('../mocks/sales.mock');
 const salesModal = require('../../../src/models/sales.model');
 
 describe('UNIT TEST - SALES MODEL', function () {

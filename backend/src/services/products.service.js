@@ -27,26 +27,33 @@ const registerProduct = async (newProduct) => {
   return { status: 'CREATED', data: register };
 };
 
-const updateProduct = async (update, id) => {
+const updateProduct = async (update, productId) => {
   const error = serviceValidate.validateRegisterProduct(update);
   if (error) {
     return { status: error.status, data: { message: error.message } };
   }
   
-  const product = await productsModel.searchProductById(id);
+  const productUpdate = await productsModel.updateProduct(update, productId);
 
-  if (!product) {
+  if (productUpdate === 0) {
     return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
   }
 
-  const productUpdate = await productsModel.updateProduct(update, id);
-
-  return { status: 'SUCCESSFUL', data: productUpdate };
+  return { status: 'SUCCESSFUL', data: { id: Number(productId), name: update.name } };
 };
+
+const deleteProduct = async (productId) => {
+  const removeProduct = await productsModel.deleteProduct(productId);
+  if (removeProduct === 0) {
+    return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
+  }
+  return { status: 'DELETE', data: { removeProduct } };
+}; 
 
 module.exports = {
   searchEveryProduct,
   searchProductById,
   registerProduct,
   updateProduct,
+  deleteProduct,
 };

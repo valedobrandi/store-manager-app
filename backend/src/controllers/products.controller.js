@@ -26,9 +26,18 @@ const update = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const remove = async (req, res) => {
+  console.log('remove');
+  const { id } = req.params;
+  const { status, data } = await productsService.deleteProduct(id);
+  
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   findAll,
   findById,
   register,
   update,
+  remove,
 };

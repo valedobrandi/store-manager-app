@@ -28,12 +28,21 @@ const registerProduct = async (newProduct) => {
 };
 
 const updateProduct = async (update, productId) => {
-  await connection.execute(
+  const [{ affectedRows }] = await connection.execute(
     'UPDATE products SET name = ? WHERE id = ?', 
     [update.name, productId],
   );
 
-  return { id: Number(productId), name: update.name };
+  return affectedRows;
+};
+
+const deleteProduct = async (productId) => {
+  const [{ affectedRows }] = await connection.execute(
+    'DELETE FROM products WHERE id = ?', 
+    [productId],
+  );
+
+  return affectedRows;
 };
 
 module.exports = {
@@ -41,4 +50,5 @@ module.exports = {
   searchProductById,
   registerProduct,
   updateProduct,
+  deleteProduct,
 };

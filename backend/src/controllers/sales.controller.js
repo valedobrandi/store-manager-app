@@ -7,6 +7,7 @@ const findAll = async (req, res) => {
 };
 
 const findById = async (req, res) => {
+  console.log('aqui');
   const { saleId } = req.params;
   const { status, data } = await salesService.searchSaleById(saleId);
   return res.status(mapStatusHTTP(status)).json(data);
