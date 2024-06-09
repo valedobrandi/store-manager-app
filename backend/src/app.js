@@ -14,7 +14,8 @@ app.get('/', (_request, response) => {
 
 app.use((error, _rea, res, _next) => {
   const status = error.status || 500;
-  res.status(status).json({ message: error.message });
+  console.log({ message: error.message });
+  res.status(status).json({ message: 'Internal Service Error' });
 });
 
 module.exports = app;
