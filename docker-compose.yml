@@ -1,4 +1,11 @@
 services:
+  frontend:
+    build: frontend
+    container_name: store_manager_app
+    ports:
+      - 5173:5173
+    volumes:
+      - ./frontend/src:/app/src
   backend:
     build: backend
     container_name: store_manager
