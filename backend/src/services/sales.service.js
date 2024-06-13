@@ -18,22 +18,31 @@ const searchSaleById = async (saleId) => {
   return { status: 'SUCCESSFUL', data: sale };
 };
 
+async function processProductIds(arrayOfProductIds) {
+  let validateProductId = true;
+  const result = arrayOfProductIds.map(({ productId }) => {
+    if (validateProductId === undefined) return undefined;
+    validateProductId = productsModel.searchProductById(productId); 
+    return validateProductId;
+  });
+ 
+  return Promise.all(result);
+}
+
 const register = async (newSale) => {
   const error = serviceValidate.validateRegisterSales(newSale);
   if (error) {
     return { status: error.status, data: { message: error.message } };
   }
 
-  const productList = await productsModel.searchEveryProduct();
-  const findProductById = newSale.map((newProduct) => productList
-    .find((DBproduct) => newProduct.productId === DBproduct.id));
-
-  if (findProductById.includes(undefined)) {
+  const [validateProductId] = await processProductIds(newSale);
+  
+  if (!validateProductId) {
     return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
   }
   const registerNewSale = await salesModel.registerSales(newSale);
 
-  return { status: 'CREATED', data: registerNewSale };
+  return { status: 'CREATED', data: registerNewSale }; 
 };
 
 const deleteSale = async (saleId) => {

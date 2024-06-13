@@ -38,6 +38,7 @@ describe('UNIT TEST - SALES SERVICE', function () {
   });
 
   it('4 - Register a new sale', async function () {
+    sinon.stub(productModel, 'searchProductById').resolves(1);
     sinon.stub(salesModel, 'registerSales').resolves(salesMock.returnRegisterSaleFromDB);
 
     const registerSale = await salesService.register(salesMock.registerSaleAtDB);
@@ -47,7 +48,7 @@ describe('UNIT TEST - SALES SERVICE', function () {
   });
 
   it('5 - Register a new sale with a product inexistent', async function () {
-    sinon.stub(productModel, 'searchEveryProduct').resolves(productsMock.everyProduct);
+    sinon.stub(productModel, 'searchProductById').resolves(undefined);
     sinon.stub(salesModel, 'registerSales').resolves();
 
     const registerSale = await salesService
