@@ -1,7 +1,6 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const salesMock = require('../mocks/sales.mock');
-const productsMock = require('../mocks/product.mock');
 const salesModel = require('../../../src/models/sales.model');
 const productModel = require('../../../src/models/products.model');
 const salesService = require('../../../src/services/sales.service');
@@ -48,7 +47,11 @@ describe('UNIT TEST - SALES SERVICE', function () {
   });
 
   it('5 - Register a new sale with a product inexistent', async function () {
-    sinon.stub(productModel, 'searchProductById').resolves(undefined);
+    sinon.stub(productModel, 'searchProductById')
+      .onCall(0)
+      .resolves(1)
+      .onCall(1)
+      .resolves(undefined);
     sinon.stub(salesModel, 'registerSales').resolves();
 
     const registerSale = await salesService

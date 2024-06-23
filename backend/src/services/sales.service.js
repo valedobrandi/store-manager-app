@@ -35,9 +35,9 @@ const register = async (newSale) => {
     return { status: error.status, data: { message: error.message } };
   }
 
-  const [validateProductId] = await processProductIds(newSale);
-  
-  if (!validateProductId) {
+  const validateProductId = await processProductIds(newSale);
+
+  if (validateProductId.some((value) => !value)) {
     return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
   }
   const registerNewSale = await salesModel.registerSales(newSale);
