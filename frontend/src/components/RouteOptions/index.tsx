@@ -3,7 +3,7 @@ import ROUTE_OPTION from '../../assets/documents/routesOptions';
 import Button from '../Button';
 
 export default function RouteOptions() {
-  const { dispatchSelectRoute, route } = useRoutesOptions();
+  const { dispatchSelectRoute, routeType } = useRoutesOptions();
 
   const routes = Object.keys(ROUTE_OPTION);
 
@@ -14,7 +14,7 @@ export default function RouteOptions() {
           <Button
             key={ value }
             dispatchSelectRoute={ dispatchSelectRoute }
-            rootState={ route }
+            rootState={ routeType }
             name={ value }
           />
         ))

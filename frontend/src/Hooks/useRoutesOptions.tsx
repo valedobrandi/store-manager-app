@@ -1,14 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { actionSelectRoute } from '../redux/actions';
-import { Dispatch } from '../types/reduxState';
+import { selectRoute } from '../redux/reducers/storeManager';
 
 export default function useRoutesOptions() {
-  const dispatch: Dispatch = useDispatch();
-  const { route } = useSelector(
-    (state: { storeManagerReducer: {
-      route: 'sales' | 'products' } }) => state.storeManagerReducer,
+  const dispatch = useDispatch();
+  const dispatchSelectRoute = (route: string) => dispatch(selectRoute({ route }));
+  const routeType = useSelector(
+    (state: { route: 'sales' | 'products' }) => state.route,
   );
-  const dispatchSelectRoute = (payload: string) => dispatch(actionSelectRoute(payload));
 
-  return { dispatchSelectRoute, route };
+  return { dispatchSelectRoute, routeType };
 }
+
+/*   const selectRoute = useSelector(
+  (state: { storeManagerReducer: {
+    route: 'sales' | 'products' } }) => state.storeManagerReducer,
+); */
