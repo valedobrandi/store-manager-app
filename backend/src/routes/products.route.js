@@ -1,4 +1,5 @@
 const route = require('express').Router();
+
 const productsController = require('../controllers/products.controller');
 const middlewares = require('../middlewares/validateProducts');
 

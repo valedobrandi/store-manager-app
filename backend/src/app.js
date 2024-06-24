@@ -1,9 +1,17 @@
 const express = require('express');
+const cors = require('cors');
 const productsRoutes = require('./routes/products.route');
 const saleRoutes = require('./routes/sales.route');
 
+const corsOptions = {
+  credentials: true,
+  origin: ['http://localhost:5174'], // Substitua pela origem correta do seu frontend
+};
+
 const app = express();
+app.use(cors(corsOptions));
 app.use(express.json());
+
 app.use('/products', productsRoutes);
 app.use('/sales', saleRoutes);
 
