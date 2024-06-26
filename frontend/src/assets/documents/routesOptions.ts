@@ -1,33 +1,33 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 const ROUTES_OPTIONS = {
   sales: {
-    get: [
-      '/sales/:saleId',
-      '/sales/:id',
-    ],
-    post: [
+    search: {
+      all: '/sales',
+      id: '/sales/:saleId',
+    },
+    register: [
       '/sales',
+    ],
+    update: [
+      '/:saleId/products/:productId/quantity',
     ],
     delete: [
       '/sales',
-    ],
-    put: [
-      '/:saleId/products/:productId/quantity',
     ],
   },
   products: {
-    get: [
+    search: {
+      all: '/products',
+      id: '/products/:productId',
+      name: '/products/search',
+    },
+    register: [
       '/products',
-      '/products/search',
-      '/products/:productId',
     ],
-    post: [
-      '/products',
+    update: [
+      '/products/:productId',
     ],
     delete: [
-      '/products/:productId',
-    ],
-    put: [
       '/products/:productId',
     ],
   },

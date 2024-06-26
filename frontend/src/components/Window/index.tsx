@@ -1,5 +1,5 @@
 type WindowPropsType = {
-  children: JSX.Element[]
+  children: JSX.Element[] | string | boolean
 };
 
 export default function Window({ children }: WindowPropsType) {

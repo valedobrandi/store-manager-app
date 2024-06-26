@@ -1,19 +1,22 @@
 type ButtonPropsType = {
-  name: string,
-  dispatchSelectRoute: (route: string) => { type: string; payload: { route: string }; },
-  rootState: string
+  type: string,
+  dispatch: (params: string) => {
+    payload: any;
+    type: string;
+  };
+  name: string;
 };
 
 export default function Button({
-  name, dispatchSelectRoute, rootState,
+  type, dispatch, name,
 }: ButtonPropsType) {
   return (
     <button
       className="btn btn-outline btn-neutral uppercase m-1"
-      value={ rootState }
-      onClick={ () => dispatchSelectRoute(name) }
+      value={ name }
+      onClick={ () => dispatch(type) }
     >
-      {name}
+      {type}
     </button>
   );
 }

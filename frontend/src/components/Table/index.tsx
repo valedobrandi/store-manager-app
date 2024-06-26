@@ -1,38 +1,22 @@
-export default function Table() {
+export default function Table({ data, columns, isSuccess, isLoading }) {
+  if (isLoading || !isSuccess) return <h1 className="text-black text-center">Request Data</h1>;
   return (
     <div className="overflow-x-auto table-lg">
       <table className="table bg-gray-300">
         {/* head */}
         <thead className="text-black font-extrabold">
           <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
+            {columns.map((column, index) => <th key={ index }>{column}</th>)}
           </tr>
         </thead>
         <tbody>
           {/* row 1 */}
-          <tr className="text-black font-extrabold hover">
-            <th>1</th>
-            <td>Cy Ganderton</td>
-            <td>Quality Control Specialist</td>
-            <td>Blue</td>
-          </tr>
-          {/* row 2 */}
-          <tr className="font-extrabold text-black hover">
-            <th>2</th>
-            <td>Hart Hagerty</td>
-            <td>Desktop Support Technician</td>
-            <td>Purple</td>
-          </tr>
-          {/* row 3 */}
-          <tr className="text-black font-extrabold hover">
-            <th>3</th>
-            <td>Brice Swyre</td>
-            <td>Tax Accountant</td>
-            <td>Red</td>
-          </tr>
+          {data.map((row, index) => (
+            <tr className="text-black font-extrabold hover" key={ index }>
+              <th>{row.id}</th>
+              <td>{row.name}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
