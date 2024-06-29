@@ -4,10 +4,13 @@ export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001' }),
   endpoints: (builder) => ({
-    fetchData: builder.query<void, void>({
-      query: () => '/products',
+    fetchData: builder.query<void, string>({
+      query: (query) => query,
     }),
   }),
 });
 
-export const { useLazyFetchDataQuery, useFetchDataQuery } = apiSlice;
+export const {
+  useLazyFetchDataQuery,
+  useFetchDataQuery,
+} = apiSlice;

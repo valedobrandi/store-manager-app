@@ -1,17 +1,33 @@
+import { useState } from 'react';
 import { useLazyFetchDataQuery } from '../redux/reducers/apiSlice';
+import createColumns from '../utils/createColumns';
+import useRoutesOptions from './useRoutesOptions';
+import getRoute from '../utils/getRoute';
 
 export default function useFetchProducts() {
+  const [input, setInput] = useState('');
+  const { fetch, route, request } = useRoutesOptions();
+
   const [fetchTrigger,
     { data = [], isError, error, isLoading, isSuccess }] = useLazyFetchDataQuery();
-  const usefetchLazyData = () => { fetchTrigger(); };
 
-  const columns = data.reduce((prev, curr) => {
-    const keys = Object.keys(curr);
-    keys.forEach((key) => {
-      if (!prev.includes(key)) prev.push(key);
-    });
-    return prev;
-  }, []);
+  const columns = createColumns(data);
+  const selectData = !Array.isArray(data) ? [data] : data;
 
-  return { usefetchLazyData, data, isError, error, isLoading, isSuccess, columns };
+  const usefetchLazyData = (...queries: string[]) => {
+    const URL = getRoute(fetch, route, request, queries);
+    fetchTrigger(URL);
+  };
+
+  const state = { input, setInput };
+  return {
+    state,
+    usefetchLazyData,
+    selectData,
+    isError,
+    error,
+    isLoading,
+    isSuccess,
+    columns,
+  };
 }

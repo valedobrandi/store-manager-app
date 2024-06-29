@@ -1,44 +1,38 @@
 import Window from './components/Window';
-import useRoutesOptions from './Hooks/useRoutesOptions';
-import ButtonsGroup from './components/ButtonsGroup';
-import ButtonsRequestGroup from './components/ButtonsRequestGroup';
 import useFetchProducts from './Hooks/useFetchProducts';
 import Table from './components/Table';
+import HTTPMethods from './components/HTTPMethods';
+import EndPoints from './components/EndPoints';
+import SearchType from './components/SearchType';
+import SearchBar from './components/SearchBar';
+import useRoutesOptions from './Hooks/useRoutesOptions';
 
 function App() {
+  const { request } = useRoutesOptions();
   const {
-    dispatchSelectRoute, dispatchSelectRequest,
-    route, request, btnRoutes, btnRequests, btnSearch,
-  } = useRoutesOptions();
-  const { usefetchLazyData, data, columns, isSuccess, isLoading } = useFetchProducts();
+    columns, isSuccess,
+    isLoading, selectData, usefetchLazyData } = useFetchProducts();
 
   return (
     <Window>
       <h1 className="text-center text-cyan-500">store-manage-app</h1>
       <div className="flex flex-col m-1">
-        <ButtonsGroup
-          btns={ btnRoutes }
-          dispatch={ dispatchSelectRoute }
-          name={ route }
-        />
-        <ButtonsGroup
-          btns={ btnRequests }
-          dispatch={ dispatchSelectRequest }
-          name={ request }
-        />
-        <div className="h-20">
+        <EndPoints />
+        <HTTPMethods />
+        <div className="h-24 mb-16">
           {request === 'search' && (
-            <ButtonsRequestGroup
-              btns={ btnSearch }
-              fetchLazyData={ usefetchLazyData }
-            />)}
+            <>
+              <SearchType />
+              <SearchBar usefetchLazyData={ usefetchLazyData } />
+            </>
+          )}
         </div>
       </div>
       <Table
         isLoading={ isLoading }
         isSuccess={ isSuccess }
         columns={ columns }
-        data={ data }
+        data={ selectData }
       />
     </Window>
   );

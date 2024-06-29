@@ -3,17 +3,14 @@ const ROUTES_OPTIONS = {
   sales: {
     search: {
       all: '/sales',
-      id: '/sales/:saleId',
+      id: '/sales/:saleId,',
     },
-    register: [
+    register:
       '/sales',
-    ],
-    update: [
+    update:
       '/:saleId/products/:productId/quantity',
-    ],
-    delete: [
+    delete:
       '/sales',
-    ],
   },
   products: {
     search: {
@@ -21,15 +18,12 @@ const ROUTES_OPTIONS = {
       id: '/products/:productId',
       name: '/products/search',
     },
-    register: [
+    register:
       '/products',
-    ],
-    update: [
+    update:
       '/products/:productId',
-    ],
-    delete: [
+    delete:
       '/products/:productId',
-    ],
   },
 };
 

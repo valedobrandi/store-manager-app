@@ -7,5 +7,8 @@ export type InitialStateType = {
   storeManager:{
     storeSearch: {
       route: 'sales' | 'products';
-      request: 'search' | 'register' | 'update' | 'delete'; }
+      request: 'search' | 'register' | 'update' | 'delete';
+      fetch: 'all' | 'id';
+      id: 'string';
+    };
   } };

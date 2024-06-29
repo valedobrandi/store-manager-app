@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const endPoints = require('express-list-endpoints');
+const expressListRoutes = require('express-list-routes');
 const productsRoutes = require('./routes/products.route');
 const saleRoutes = require('./routes/sales.route');
 
@@ -18,11 +18,8 @@ app.use('/sales', saleRoutes);
 
 // não remova esse endpoint, é para o avaliador funcionar
 app.get('/', (_request, response) => {
-  response.json({ status: 'Store Manager UP!' });
-});
-
-app.get('/routes', (req, res) => {
-  res.status(200).send(endPoints(app));
+  const routes = expressListRoutes(app);
+  response.json({ status: 'Store Manager UP!', routes });
 });
 
 app.use((error, _rea, res, _next) => {
