@@ -20,4 +20,10 @@ body {
   min-height: 2rem
 }
 
+.no-animation {
+  --btn-focus-scale: none;
+  --animation-btn: 0;
+  --animation-input: 0;
+}
+
 

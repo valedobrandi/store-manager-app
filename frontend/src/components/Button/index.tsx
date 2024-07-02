@@ -12,9 +12,8 @@ export default function Button({
 }: ButtonPropsType) {
   return (
     <button
-      className={ `btn btn-outline btn-neutral uppercase m-1 
+      className={ `btn btn-outline btn-neutral uppercase m-1
         ${store === name ? 'bg-black text-white  border-none' : ''}` }
-      value={ store }
       onClick={ () => dispatch(name) }
     >
       {name}

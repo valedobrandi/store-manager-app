@@ -1,4 +1,6 @@
-const createColumns = (data = []) => {
+const createColumns = (data: Record<string, any>[]) => {
+  if (!data) return []
+
   let checkForArray = data;
 
   if (!Array.isArray(data)) { checkForArray = [data]; }
@@ -11,7 +13,7 @@ const createColumns = (data = []) => {
     return prev;
   }, []);
 
-  return columns;
+  return columns as unknown as string[];
 };
 
 export default createColumns;

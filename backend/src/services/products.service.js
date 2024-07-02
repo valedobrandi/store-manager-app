@@ -47,6 +47,7 @@ const deleteProduct = async (productId) => {
   if (removeProduct === 0) {
     return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
   }
+
   return { status: 'DELETE', data: { removeProduct } };
 }; 
 

@@ -4,11 +4,13 @@ export type ReduxState = {
 };
 
 export type InitialStateType = {
-  storeManager:{
+  storeManager: {
     storeSearch: {
       route: 'sales' | 'products';
       request: 'search' | 'register' | 'update' | 'delete';
-      fetch: 'all' | 'id';
+      fetch: 'all' | 'id' | 'name';
       id: 'string';
+      displayAlert: boolean;
     };
-  } };
+  }
+};

@@ -1,22 +1,27 @@
-import useFetchProducts from '../../Hooks/useFetchProducts';
+import useFormState from '../../Hooks/useFormState';
+import useRoutesOptions from '../../Hooks/useRoutesOptions';
+import FetchButton from '../FetchButton';
 import Input from '../Input';
+import SearchType from '../SearchType';
 
 type SearchBarPops = {
-  usefetchLazyData: (query: string) => void
+  usefetchLazyData: (query: { name: string, id: string }) => void
 };
 
 export default function SearchBar({ usefetchLazyData }: SearchBarPops) {
-  const { state } = useFetchProducts();
-
+  const { form, setForm } = useFormState();
+  const { fetch } = useRoutesOptions()
   return (
     <div className="m-4">
-      <Input state={ state } />
-      <button
-        className="btn btn-outline btn-neutral uppercase m-1"
-        onClick={ () => usefetchLazyData(state.input) }
-      >
-        SEARCH
-      </button>
+      <SearchType />
+      <div>
+        <Input name={fetch} setInput={setForm} input={form} key="search" />
+        <FetchButton
+          title="SEARCH"
+          input={form}
+          usefetchLazyData={usefetchLazyData} />
+      </div>
     </div>
+
   );
 }

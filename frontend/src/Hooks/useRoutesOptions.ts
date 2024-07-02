@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectRoute, selectRequest,
-  selectFetch, selectId } from '../redux/reducers/storeManager';
+import {
+  selectRoute, selectRequest,
+  selectFetch, selectId
+} from '../redux/reducers/storeManager';
 import { InitialStateType } from '../types/reduxState';
 import URL_ROUTES from '../utils/URL_ROUTES';
 

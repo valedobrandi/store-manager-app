@@ -1,35 +1,53 @@
 export default function getRoute(
-  fetch: 'all' | 'id' | 'name',
+  fetch: 'all' | 'id' | 'name' | '',
   route: 'sales' | 'products',
   request: 'search' | 'register' | 'update' | 'delete',
-  params: string[],
+  params: { name: string, id: string },
+
 ) {
+  fetch = request !== 'search' ? '' : fetch;
   const ROUTES_OPTIONS = {
     sales: {
       search: {
         all: '/sales',
-        id: `/sales/${params[0]}`,
+        id: `/sales/${params.id}`,
       },
       register:
         '/sales',
       update:
-        `/${params[0]}/products/${params[1]}/quantity`,
+        `/${params.id}/products/${params.id}/quantity`,
       delete:
-        `/sales/${params[0]}`,
+      {
+        url: `/sales/${params.id}`,
+        method: 'DELETE',
+      },
     },
     products: {
       search: {
         all: '/products',
-        id: `/products/${params[0]}`,
-        name: `/products/search?q=${params[0]}`,
+        id: `/products/${params.id}`,
+        name: `/products/search?q=${params.name}`,
       },
       register:
-        '/products',
+      {
+        url: '/products',
+        method: 'POST',
+        body: { name: params.name },
+      },
       update:
-        `/products/${params[0]}`,
+      {
+        url: `/products/${params.id}`,
+        method: 'PUT',
+        body: { name: params.name },
+      },
       delete:
-        `/products/${params[0]}`,
+      {
+        url: `/products/${params.id}`,
+        method: 'DELETE',
+      },
     },
   };
+
+  if (fetch === '') return ROUTES_OPTIONS[route][request];
   return ROUTES_OPTIONS[route][request][fetch];
 }

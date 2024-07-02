@@ -6,6 +6,7 @@ const intialState = {
     request: 'search',
     fetch: '',
     id: '1',
+    displayAlert: true,
   },
 };
 
@@ -25,6 +26,9 @@ const storeManagerSlice = createSlice({
     selectId: (state, action) => {
       state.storeSearch.id = action.payload.id;
     },
+    displayAlert: (state, action) => {
+      state.storeSearch.displayAlert = !state.storeSearch.displayAlert;
+    },
   },
 });
 
@@ -33,5 +37,6 @@ export const {
   selectRequest,
   selectFetch,
   selectId,
+  displayAlert,
 } = storeManagerSlice.actions;
 export default storeManagerSlice.reducer;

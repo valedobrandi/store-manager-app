@@ -5,7 +5,12 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001' }),
   endpoints: (builder) => ({
     fetchData: builder.query<void, string>({
-      query: (query) => query,
+      query: (query) => (
+        query
+      ),
+    }),
+    sendData: builder.mutation({
+      query: (query) => (query),
     }),
   }),
 });
@@ -13,4 +18,5 @@ export const apiSlice = createApi({
 export const {
   useLazyFetchDataQuery,
   useFetchDataQuery,
+  useSendDataMutation
 } = apiSlice;
