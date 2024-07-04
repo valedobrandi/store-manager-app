@@ -8,19 +8,23 @@ type BarDeletePops = {
 };
 
 export default function BarDelete({ usefetchLazyData }: BarDeletePops) {
-  const { form, setForm } = useFormState();
+  const { productForm, updateProductForm } = useFormState();
   return (
     <div className="m-4">
       <Label title="ID">
         <Input
           width="max-w-20"
           name="id"
-          setInput={ setForm }
-          input={ form }
+          setInput={ updateProductForm }
+          input={ productForm }
           key="register"
         />
       </Label>
-      <FetchButton title="DELETE" input={ form } usefetchLazyData={ usefetchLazyData } />
+      <FetchButton
+        title="DELETE"
+        input={ productForm }
+        usefetchLazyData={ usefetchLazyData }
+      />
     </div>
   );
 }

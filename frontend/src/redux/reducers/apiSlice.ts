@@ -18,5 +18,5 @@ export const apiSlice = createApi({
 export const {
   useLazyFetchDataQuery,
   useFetchDataQuery,
-  useSendDataMutation
+  useSendDataMutation,
 } = apiSlice;

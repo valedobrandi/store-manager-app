@@ -1,14 +1,17 @@
-import objectTostring from "../../utils/objectToString";
 import { useDispatch } from 'react-redux';
+import objectTostring from '../../utils/objectToString';
 import { displayAlert } from '../../redux/reducers/storeManager';
+
 type SuccessAlertProps = {
-  message: object | {};
-}
+  message: object | [];
+};
 
 export default function SuccessAlert({ message = {} }: SuccessAlertProps) {
   const dispatch = useDispatch();
   const dispatchDisplayAlert = () => dispatch(displayAlert({}));
-  const successMessage = objectTostring(message)
+  console.log(message);
+
+  const successMessage = objectTostring(message);
 
   return (
     <div role="alert" className="alert alert-success ml-4">
@@ -28,7 +31,7 @@ export default function SuccessAlert({ message = {} }: SuccessAlertProps) {
       <div>
         <span>{successMessage}</span>
       </div>
-      <button className="btn btn-sm" onClick={() => dispatchDisplayAlert()}>X</button>
+      <button className="btn btn-sm" onClick={ () => dispatchDisplayAlert() }>X</button>
     </div>
   );
 }

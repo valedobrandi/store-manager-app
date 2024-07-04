@@ -2,7 +2,8 @@ export default function getRoute(
   fetch: 'all' | 'id' | 'name' | '',
   route: 'sales' | 'products',
   request: 'search' | 'register' | 'update' | 'delete',
-  params: { name: string, id: string },
+  params: {
+    name?: string, id?: string, saleItems?: { productId: string; quantity: string; }[] },
 
 ) {
   fetch = request !== 'search' ? '' : fetch;
@@ -13,7 +14,11 @@ export default function getRoute(
         id: `/sales/${params.id}`,
       },
       register:
-        '/sales',
+      {
+        url: '/sales',
+        method: 'POST',
+        body: params.saleItems,
+      },
       update:
         `/${params.id}/products/${params.id}/quantity`,
       delete:

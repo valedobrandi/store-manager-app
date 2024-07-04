@@ -1,9 +1,8 @@
+import { ProductFormType, SaleFormType } from '../../types/fetchButtonTypes';
+
 type FetchButtonProps = {
-  usefetchLazyData: (query: { name: string, id: string }) => void;
-  input: {
-    name: string;
-    id: string;
-  }
+  usefetchLazyData: (query: ProductFormType | SaleFormType) => void;
+  input: ProductFormType | SaleFormType;
   title: string;
 };
 
@@ -12,7 +11,7 @@ export default function FetchButton({
   return (
     <button
       className="btn btn-outline btn-neutral uppercase m-1"
-      onClick={() => usefetchLazyData(input)}
+      onClick={ () => usefetchLazyData(input) }
     >
       {title}
     </button>

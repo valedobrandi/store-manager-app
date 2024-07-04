@@ -31,6 +31,7 @@ async function processProductIds(arrayOfProductIds) {
 
 const register = async (newSale) => {
   const error = serviceValidate.validateRegisterSales(newSale);
+
   if (error) {
     return { status: error.status, data: { message: error.message } };
   }

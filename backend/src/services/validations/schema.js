@@ -1,8 +1,8 @@
 const Joi = require('joi');
 
 const registerSale = Joi.object({
-  quantity: Joi.number().min(1),
-  productId: Joi.number(),
+  quantity: Joi.number().min(1).required(),
+  productId: Joi.number().required(),
 });
 
 const registerProduct = Joi.object({

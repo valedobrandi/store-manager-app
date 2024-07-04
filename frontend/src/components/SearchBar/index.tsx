@@ -9,17 +9,23 @@ type SearchBarPops = {
 };
 
 export default function SearchBar({ usefetchLazyData }: SearchBarPops) {
-  const { form, setForm } = useFormState();
-  const { fetch } = useRoutesOptions()
+  const { productForm, updateProductForm } = useFormState();
+  const { fetch } = useRoutesOptions();
   return (
     <div className="m-4">
       <SearchType />
       <div>
-        <Input name={fetch} setInput={setForm} input={form} key="search" />
+        <Input
+          name={ fetch }
+          setInput={ updateProductForm }
+          input={ productForm }
+          key="search"
+        />
         <FetchButton
           title="SEARCH"
-          input={form}
-          usefetchLazyData={usefetchLazyData} />
+          input={ productForm }
+          usefetchLazyData={ usefetchLazyData }
+        />
       </div>
     </div>
 

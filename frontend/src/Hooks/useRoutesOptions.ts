@@ -1,15 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectRoute, selectRequest,
-  selectFetch, selectId
+  selectFetch, selectId,
 } from '../redux/reducers/storeManager';
 import { InitialStateType } from '../types/reduxState';
 import URL_ROUTES from '../utils/URL_ROUTES';
 
 export default function useRoutesOptions() {
   const dispatch = useDispatch();
-  const dispatchSelectRoute = (route: string) => dispatch(selectRoute({ route }));
-  const dispatchSelectRequest = (request: string) => dispatch(selectRequest({ request }));
+  const dispatchSelectRoute = (route?: string) => {
+    dispatch(selectRoute({ route }));
+  };
+  const dispatchSelectRequest = (request?: string) => {
+    dispatch(selectRequest({ request }));
+  };
   const dispatchSelectFetch = (fetch: string) => dispatch(selectFetch({ fetch }));
   const dispatchselectId = (id: string) => dispatch(selectId({ id }));
   const { route, request, fetch, id } = useSelector(

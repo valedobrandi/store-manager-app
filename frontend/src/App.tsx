@@ -68,11 +68,11 @@ function App() {
 
         </div>
       </div>
-      <Table
-        isSuccess={ fetchHttp.isSuccess }
-        columns={ fetchHttp.columns }
-        data={ fetchHttp.fetchData }
-      />
+      <div className="m-4">
+        <Table
+          data={ fetchHttp.fetchData }
+        />
+      </div>
     </Window>
   );
 }

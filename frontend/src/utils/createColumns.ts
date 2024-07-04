@@ -1,5 +1,5 @@
 const createColumns = (data: Record<string, any>[]) => {
-  if (!data) return []
+  if (!data) return [];
 
   let checkForArray = data;
 

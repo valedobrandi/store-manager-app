@@ -17,6 +17,9 @@ export default function Alerts(
   { children, isSuccess, isError, error, sendData }: AlertProps,
 ) {
   const { displayAlert } = useConditionalRendering();
+
+  console.log(sendData);
+
   return (
     <div>
       {children}

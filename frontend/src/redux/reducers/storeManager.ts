@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const intialState = {
   storeSearch: {
-    route: 'sales',
+    route: 'products',
     request: 'search',
     fetch: '',
     id: '1',
@@ -27,7 +27,7 @@ const storeManagerSlice = createSlice({
       state.storeSearch.id = action.payload.id;
     },
     displayAlert: (state, action) => {
-      state.storeSearch.displayAlert = !state.storeSearch.displayAlert;
+      state.storeSearch.displayAlert = true;
     },
   },
 });

@@ -1,18 +1,16 @@
 type ButtonPropsType = {
   name: string,
-  dispatch: (params: string) => {
-    payload: any;
-    type: string;
-  };
-  store: string;
+  dispatch: (name?: string) => void;
+  store?: string;
+  btnType?: string;
 };
 
 export default function Button({
-  name, dispatch, store,
+  name, dispatch, store = '', btnType = 'neutral',
 }: ButtonPropsType) {
   return (
     <button
-      className={ `btn btn-outline btn-neutral uppercase m-1
+      className={ `btn btn-outline btn-${btnType} uppercase m-1
         ${store === name ? 'bg-black text-white  border-none' : ''}` }
       onClick={ () => dispatch(name) }
     >
