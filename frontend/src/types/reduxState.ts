@@ -10,7 +10,7 @@ export type InitialStateType = {
       request: 'search' | 'register' | 'update' | 'delete';
       fetch: 'all' | 'id' | 'name';
       id: 'string';
-      displayAlert: boolean;
+      isAlert: boolean;
     };
   }
 };

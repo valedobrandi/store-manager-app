@@ -1,19 +1,16 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
-import objectTostring from '../../utils/objectToString';
-import { displayAlert } from '../../redux/reducers/storeManager';
+import useConditionalRendering from '../../Hooks/useConditionalRendering';
 
 type ErrorAlertProps = {
   message: FetchBaseQueryError | SerializedError | undefined
 };
 
-export default function ErrorAlert({ message = {} }: ErrorAlertProps) {
-  const { status, data } = message as FetchBaseQueryError;
-  const dispatch = useDispatch();
-  const dispatchDisplayAlert = () => dispatch(displayAlert({}));
+export default function ErrorAlert({ message }: ErrorAlertProps) {
+  const { data } = message as FetchBaseQueryError;
+  const { dispatchDisplayAlert, isAlert } = useConditionalRendering();
 
-  const errorMessage = objectTostring({ status, message: data.message });
+  const errorMessage = data.message.toUpperCase() || '';
   return (
     <div role="alert" className="alert alert-error ml-4">
       <svg
@@ -32,7 +29,12 @@ export default function ErrorAlert({ message = {} }: ErrorAlertProps) {
       <div>
         <span>{errorMessage}</span>
       </div>
-      <button className="btn btn-sm" onClick={ () => dispatchDisplayAlert() }>X</button>
+      <button
+        className="btn btn-sm"
+        onClick={ () => dispatchDisplayAlert(!isAlert) }
+      >
+        X
+      </button>
     </div>
   );
 }

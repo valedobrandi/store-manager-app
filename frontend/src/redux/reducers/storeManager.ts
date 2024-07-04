@@ -6,7 +6,7 @@ const intialState = {
     request: 'search',
     fetch: '',
     id: '1',
-    displayAlert: true,
+    isAlert: false,
   },
 };
 
@@ -27,7 +27,7 @@ const storeManagerSlice = createSlice({
       state.storeSearch.id = action.payload.id;
     },
     displayAlert: (state, action) => {
-      state.storeSearch.displayAlert = true;
+      state.storeSearch.isAlert = action.payload.isAlert;
     },
   },
 });

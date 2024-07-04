@@ -1,11 +1,12 @@
 import useFormState from '../../Hooks/useFormState';
 import useRoutesOptions from '../../Hooks/useRoutesOptions';
+import { ProductFormType, SaleFormType } from '../../types/fetchButtonTypes';
 import FetchButton from '../FetchButton';
 import Input from '../Input';
 import SearchType from '../SearchType';
 
 type SearchBarPops = {
-  usefetchLazyData: (query: { name: string, id: string }) => void
+  usefetchLazyData: (query: ProductFormType | SaleFormType) => void
 };
 
 export default function SearchBar({ usefetchLazyData }: SearchBarPops) {

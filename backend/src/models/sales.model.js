@@ -27,10 +27,11 @@ const searchSaleById = async (saleId) => {
 };
 
 const registerSales = async (newSale) => {
-  await connection.execute(
+  const [ResultSetHeader] = await connection.execute(
     'INSERT INTO sales (id, date) VALUES (DEFAULT, DEFAULT);',
   );
-  const [[{ id }]] = await connection.execute('SELECT LAST_INSERT_ID() AS id');
+ 
+  const  id = ResultSetHeader.insertId;
   const [saleKeys] = newSale;
   const newSaleInsert = newSale.map((sale) => ({ saleId: id, ...sale })); 
   const saleQuery = { saleId: id, ...saleKeys };

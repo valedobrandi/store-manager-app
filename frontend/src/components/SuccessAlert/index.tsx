@@ -1,16 +1,12 @@
-import { useDispatch } from 'react-redux';
+import useConditionalRendering from '../../Hooks/useConditionalRendering';
 import objectTostring from '../../utils/objectToString';
-import { displayAlert } from '../../redux/reducers/storeManager';
 
 type SuccessAlertProps = {
-  message: object | [];
+  message: object | [] | string;
 };
 
 export default function SuccessAlert({ message = {} }: SuccessAlertProps) {
-  const dispatch = useDispatch();
-  const dispatchDisplayAlert = () => dispatch(displayAlert({}));
-  console.log(message);
-
+  const { dispatchDisplayAlert, isAlert } = useConditionalRendering();
   const successMessage = objectTostring(message);
 
   return (
@@ -31,7 +27,12 @@ export default function SuccessAlert({ message = {} }: SuccessAlertProps) {
       <div>
         <span>{successMessage}</span>
       </div>
-      <button className="btn btn-sm" onClick={ () => dispatchDisplayAlert() }>X</button>
+      <button
+        className="btn btn-sm"
+        onClick={ () => dispatchDisplayAlert(!isAlert) }
+      >
+        X
+      </button>
     </div>
   );
 }

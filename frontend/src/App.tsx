@@ -29,7 +29,7 @@ function App() {
               isSuccess={ fetchHttp.isSuccess }
               isError={ fetchHttp.isError }
               error={ fetchHttp.error }
-              sendData={ { message: 'SUCCESS' } }
+              sendData="SUCCESS"
             >
               <SearchBar usefetchLazyData={ fetchHttp.usefetchLazyData } />
             </Alerts>
@@ -50,7 +50,7 @@ function App() {
               isSuccess={ sendHttp.isSuccess }
               isError={ sendHttp.isError }
               error={ sendHttp.error }
-              sendData={ sendHttp.sendData }
+              sendData="SUCCESS"
             >
               <BarDelete usefetchLazyData={ sendHttp.useSendLazyData } />
             </Alerts>

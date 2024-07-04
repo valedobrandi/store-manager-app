@@ -2,11 +2,16 @@ import createColumns from '../../utils/createColumns';
 
 type TableProps = {
   data: Record<string, any>[];
+  width?: string;
 };
 
-export default function Table({ data }: TableProps) {
+export default function Table({ data, width = '' }: TableProps) {
   return (
-    <div className="overflow-x-auto table-lg min-h-64 font-Poppins">
+    <div
+      className={ `overflow-x-auto
+    table-lg font-Poppins bg-slate-50
+    rounded-lg mt-2 w-${width}` }
+    >
       <table className="table">
         <thead className="text-black font-extrabold">
           <tr>

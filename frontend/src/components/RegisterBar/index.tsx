@@ -13,8 +13,8 @@ type RegisterBarPops = {
 
 export default function RegisterBar({ usefetchLazyData }: RegisterBarPops) {
   const { productForm, updateProductForm } = useFormState();
-  const { saleForm, updateSaleForm, itemsList, saleItems, addSaleItem } = useFormState();
-  const { isSales, isProducts } = useConditionalRendering();
+  const { saleForm, updateSaleForm, saleItems, itemsList, addSaleItem } = useFormState();
+  const { isSales, isProducts, isItemList } = useConditionalRendering();
   return (
     <div>
       {isProducts() && (
@@ -64,9 +64,9 @@ export default function RegisterBar({ usefetchLazyData }: RegisterBarPops) {
             input={ saleItems }
             usefetchLazyData={ usefetchLazyData }
           />
-          <div>
-            <Table data={ itemsList } />
-          </div>
+          {isItemList(itemsList) && (
+            <Table width="80" data={ itemsList } />
+          )}
         </div>
       )}
     </div>

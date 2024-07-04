@@ -15,16 +15,21 @@ const searchProductById = async (productId) => {
 };
 
 const registerProduct = async (newProduct) => {
-  const columns = format.getFormattedColumnNames(newProduct);
-  const placeholders = format.getFormattedPlaceholders(newProduct);
-  const query = `INSERT INTO products (${columns}) VALUE (${placeholders});`;
-  
-  await connection
+  try {
+    const columns = format.getFormattedColumnNames(newProduct);
+    const placeholders = format.getFormattedPlaceholders(newProduct);
+    const query = `INSERT INTO products (${columns}) VALUE (${placeholders});`;
+    
+    await connection
     .execute(query, [...Object.values(newProduct)]);
-
-  const [[{ id }]] = await connection.execute('SELECT LAST_INSERT_ID() AS id');
-
-  return { id, ...newProduct };
+    
+    const [[{ id }]] = await connection.execute('SELECT LAST_INSERT_ID() AS id');
+    
+    return { id, ...newProduct };
+    
+  } catch (error) {
+    return  new Error(error.message)
+  }
 };
 
 const updateProduct = async (update, productId) => {

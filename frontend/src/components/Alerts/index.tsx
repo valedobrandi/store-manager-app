@@ -10,20 +10,18 @@ type AlertProps = {
   isSuccess: boolean;
   isError: boolean;
   error: FetchBaseQueryError | SerializedError | undefined;
-  sendData: object;
+  sendData: object | string;
 };
 
 export default function Alerts(
   { children, isSuccess, isError, error, sendData }: AlertProps,
 ) {
-  const { displayAlert } = useConditionalRendering();
-
-  console.log(sendData);
+  const { isAlert } = useConditionalRendering();
 
   return (
     <div>
       {children}
-      {displayAlert && (
+      {isAlert && (
         <>
           {isSuccess && <SuccessAlert message={ sendData } />}
           {isError && <ErrorAlert message={ error } />}
