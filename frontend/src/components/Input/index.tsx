@@ -6,6 +6,7 @@ type InputProps = {
     id?: string;
     productId?: string;
     quantity?: string;
+    saleId?: string;
   };
   width?: string;
   name: string;

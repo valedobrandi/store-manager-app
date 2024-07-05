@@ -1,9 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 import useRoutesOptions from './useRoutesOptions';
 import { InitialStateType } from '../types/reduxState';
 import { displayAlert } from '../redux/reducers/storeManager';
 
 export default function useConditionalRendering() {
+  const [close, setClose] = useState(false);
+
   const dispatch = useDispatch();
   const { request, route } = useRoutesOptions();
 
@@ -13,19 +16,20 @@ export default function useConditionalRendering() {
   const { isAlert } = useSelector(
     (state: InitialStateType) => state.storeManager.storeSearch,
   );
-
+  const btnBadge = (param: boolean) => setClose(param);
   const isFetch = () => request === 'search';
   const isRegister = () => request === 'register';
   const isDelete = () => request === 'delete';
   const isUpdate = () => request === 'update';
   const isSales = () => route === 'sales';
   const isProducts = () => route === 'products';
-  const isItemList = (saleItems: {
-    productId: string;
-    quantity: string;
-  }[]) => saleItems.length > 0;
+  const isItemList = (saleItems: number) => saleItems > 0;
+  const isData = (isSuccess: boolean) => isSuccess;
 
   return {
+    btnBadge,
+    close,
+    isData,
     isFetch,
     isRegister,
     isDelete,

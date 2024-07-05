@@ -9,6 +9,12 @@ export const apiSlice = createApi({
         query
       ),
     }),
+    salesData: builder.query<void, void>({
+      query: () => '/sales',
+    }),
+    productsData: builder.query<void, void>({
+      query: () => '/products',
+    }),
     sendData: builder.mutation({
       query: (query) => (query),
     }),
@@ -17,6 +23,7 @@ export const apiSlice = createApi({
 
 export const {
   useLazyFetchDataQuery,
-  useFetchDataQuery,
+  useSalesDataQuery,
+  useProductsDataQuery,
   useSendDataMutation,
 } = apiSlice;

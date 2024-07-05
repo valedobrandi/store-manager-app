@@ -1,10 +1,13 @@
 import {
+  useSalesDataQuery,
   useLazyFetchDataQuery,
+  useProductsDataQuery,
 } from '../redux/reducers/apiSlice';
 import useRoutesOptions from './useRoutesOptions';
 import getRoute from '../utils/getRoute';
 
-import { ProductFormType, SaleFormType } from '../types/fetchButtonTypes';
+import { ProductFormType, SaleFormType,
+  UpdateProductFromSaleFormType } from '../types/fetchButtonTypes';
 import useConditionalRendering from './useConditionalRendering';
 
 export default function useFetchData() {
@@ -13,10 +16,13 @@ export default function useFetchData() {
   const [fetchTrigger,
     { data = [], isLoading, error, isError, isSuccess },
   ] = useLazyFetchDataQuery();
+  const { data: salesData = [], refetch: salesRefresh } = useSalesDataQuery();
+  const { data: productsData = [], refetch: productsRefresh } = useProductsDataQuery();
 
   const fetchData = !Array.isArray(data) ? [data] : data;
 
-  const usefetchLazyData = (queries: ProductFormType | SaleFormType) => {
+  const usefetchLazyData = (queries: ProductFormType |
+  SaleFormType | UpdateProductFromSaleFormType) => {
     dispatchDisplayAlert(true);
     const URL = getRoute(fetch, route, request, queries);
     fetchTrigger(URL);
@@ -29,7 +35,9 @@ export default function useFetchData() {
     isLoading,
     error,
     isSuccess,
+    salesRefresh,
+    productsRefresh,
   };
 
-  return { fetchHttp };
+  return { fetchHttp, salesData, productsData };
 }

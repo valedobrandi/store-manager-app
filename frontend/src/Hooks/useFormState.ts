@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import useConditionalRendering from './useConditionalRendering';
 
 export default function useFormState() {
+  const { btnBadge } = useConditionalRendering();
   const [productForm, setProductForm] = useState({
     name: '',
     id: '',
@@ -15,6 +17,12 @@ export default function useFormState() {
     quantity: '',
   });
 
+  const [updateProductFromSaleForm, setUpdateProductFromSaleForm] = useState({
+    productId: '',
+    saleId: '',
+    quantity: '',
+  });
+
   const itemsList = saleItems.saleItems;
 
   const updateProductForm = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,12 +30,20 @@ export default function useFormState() {
     setProductForm({ ...productForm, [target.name]: target.value });
   };
 
-  const updateSaleForm = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const registerNewSaleForm = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { target } = event;
     setSaleForm({ ...saleForm, [target.name]: target.value });
   };
 
+  const updateProductFromSale = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { target } = event;
+    setUpdateProductFromSaleForm(
+      { ...updateProductFromSaleForm, [target.name]: target.value },
+    );
+  };
+
   const addSaleItem = () => {
+    btnBadge(true);
     setSaleItems({ saleItems: [...saleItems.saleItems, saleForm] });
   };
 
@@ -35,9 +51,11 @@ export default function useFormState() {
     productForm,
     updateProductForm,
     saleForm,
-    updateSaleForm,
+    registerNewSaleForm,
     itemsList,
     saleItems,
     addSaleItem,
+    updateProductFromSaleForm,
+    updateProductFromSale,
   };
 }

@@ -3,7 +3,8 @@ import {
 } from '../redux/reducers/apiSlice';
 import useRoutesOptions from './useRoutesOptions';
 import getRoute from '../utils/getRoute';
-import { ProductFormType, SaleFormType } from '../types/fetchButtonTypes';
+import { ProductFormType, SaleFormType,
+  UpdateProductFromSaleFormType } from '../types/fetchButtonTypes';
 import useConditionalRendering from './useConditionalRendering';
 
 export default function useSendData() {
@@ -15,7 +16,8 @@ export default function useSendData() {
 
   const sendData = !Array.isArray(data) ? [data] : data;
 
-  const useSendLazyData = (queries: ProductFormType | SaleFormType) => {
+  const useSendLazyData = (queries: ProductFormType |
+  SaleFormType | UpdateProductFromSaleFormType | undefined) => {
     dispatchDisplayAlert(true);
     const URL = getRoute(fetch, route, request, queries);
     sendTrigger(URL);

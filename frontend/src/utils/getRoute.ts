@@ -1,12 +1,17 @@
+/* eslint-disable react-func/max-lines-per-function */
 export default function getRoute(
   fetch: 'all' | 'id' | 'name' | '',
   route: 'sales' | 'products',
   request: 'search' | 'register' | 'update' | 'delete',
-  params: {
-    name?: string, id?: string, saleItems?: { productId: string; quantity: string; }[] },
+  params: { name?: string, id?: string, productId?: string,
+    saleId?: string, quantity?: string;
+    saleItems?: { productId: string; quantity: string; }[] } | undefined,
 
 ) {
+  if (!params) return;
+
   fetch = request !== 'search' ? '' : fetch;
+
   const ROUTES_OPTIONS = {
     sales: {
       search: {
@@ -20,7 +25,13 @@ export default function getRoute(
         body: params.saleItems,
       },
       update:
-        `/${params.id}/products/${params.id}/quantity`,
+      {
+        url: `/sales/${params.saleId}/products/${params.productId}/quantity`,
+        method: 'PUT',
+        body: {
+          quantity: params.quantity,
+        },
+      },
       delete:
       {
         url: `/sales/${params.id}`,
@@ -54,5 +65,5 @@ export default function getRoute(
   };
 
   if (fetch === '') return ROUTES_OPTIONS[route][request];
-  return ROUTES_OPTIONS[route][request][fetch];
+  if (request === 'search') return ROUTES_OPTIONS[route][request][fetch];
 }

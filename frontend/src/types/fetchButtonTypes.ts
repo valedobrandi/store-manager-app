@@ -6,3 +6,9 @@ export type ProductFormType = {
 export type SaleFormType = {
   saleItems: { productId: string; quantity: string; }[];
 };
+
+export type UpdateProductFromSaleFormType = {
+  productId: string;
+  saleId: string;
+  quantity: string;
+};

@@ -14,7 +14,9 @@ export default function useRoutesOptions() {
   const dispatchSelectRequest = (request?: string) => {
     dispatch(selectRequest({ request }));
   };
-  const dispatchSelectFetch = (fetch: string) => dispatch(selectFetch({ fetch }));
+  const dispatchSelectFetch = (fetch?: string) => {
+    dispatch(selectFetch({ fetch }));
+  };
   const dispatchselectId = (id: string) => dispatch(selectId({ id }));
   const { route, request, fetch, id } = useSelector(
     (state: InitialStateType) => state.storeManager.storeSearch,

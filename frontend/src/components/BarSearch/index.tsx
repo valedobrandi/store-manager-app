@@ -1,20 +1,25 @@
+import useConditionalRendering from '../../Hooks/useConditionalRendering';
 import useFormState from '../../Hooks/useFormState';
 import useRoutesOptions from '../../Hooks/useRoutesOptions';
-import { ProductFormType, SaleFormType } from '../../types/fetchButtonTypes';
+import { ProductFormType, SaleFormType,
+  UpdateProductFromSaleFormType } from '../../types/fetchButtonTypes';
 import FetchButton from '../FetchButton';
 import Input from '../Input';
 import SearchType from '../SearchType';
 
 type SearchBarPops = {
-  usefetchLazyData: (query: ProductFormType | SaleFormType) => void
+  usefetchLazyData: (query: ProductFormType |
+  SaleFormType | UpdateProductFromSaleFormType) => void
 };
 
 export default function SearchBar({ usefetchLazyData }: SearchBarPops) {
   const { productForm, updateProductForm } = useFormState();
   const { fetch } = useRoutesOptions();
+  const { isFetch } = useConditionalRendering();
+
   return (
     <div className="m-4">
-      <SearchType />
+      {isFetch() && <SearchType />}
       <div>
         <Input
           name={ fetch }

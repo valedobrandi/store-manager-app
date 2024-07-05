@@ -1,21 +1,23 @@
+/* eslint-disable react/jsx-max-depth */
 import Window from './components/Window';
 import useFetchProducts from './Hooks/useFetchData';
 import Table from './components/Table';
 import HTTPMethods from './components/HTTPMethods';
 import EndPoints from './components/EndPoints';
-import SearchBar from './components/SearchBar';
+import SearchBar from './components/BarSearch';
 import useConditionalRendering from './Hooks/useConditionalRendering';
-import RegisterBar from './components/RegisterBar';
+import RegisterBar from './components/BarRegister';
 
 import BarDelete from './components/BarDelete';
 import BarUpdate from './components/BarUpdate';
 import useSendData from './Hooks/useSendData';
 import Alerts from './components/Alerts';
+import TransitionEvent from './components/Transition';
 
 function App() {
-  const { isFetch, isRegister, isDelete, isUpdate } = useConditionalRendering();
+  const { isFetch, isRegister, isDelete, isUpdate, isData } = useConditionalRendering();
   const { sendHttp } = useSendData();
-  const { fetchHttp } = useFetchProducts();
+  const { fetchHttp, salesData, productsData } = useFetchProducts();
 
   return (
     <Window>
@@ -24,55 +26,56 @@ function App() {
         <EndPoints />
         <HTTPMethods />
         <div className="">
-          {isFetch() && (
+          <TransitionEvent display={ isFetch() } time={ 100 }>
             <Alerts
               isSuccess={ fetchHttp.isSuccess }
               isError={ fetchHttp.isError }
               error={ fetchHttp.error }
-              sendData="SUCCESS"
+              message="SUCCESS"
             >
               <SearchBar usefetchLazyData={ fetchHttp.usefetchLazyData } />
             </Alerts>
-          )}
-          {isRegister() && (
+          </TransitionEvent>
+          <TransitionEvent display={ isRegister() } time={ 200 }>
             <Alerts
               isSuccess={ sendHttp.isSuccess }
               isError={ sendHttp.isError }
               error={ sendHttp.error }
-              sendData={ sendHttp.sendData }
+              message={ sendHttp.sendData }
             >
               <RegisterBar usefetchLazyData={ sendHttp.useSendLazyData } />
             </Alerts>
-          )}
-
-          {isDelete() && (
+          </TransitionEvent>
+          <TransitionEvent display={ isDelete() } time={ 200 }>
             <Alerts
               isSuccess={ sendHttp.isSuccess }
               isError={ sendHttp.isError }
               error={ sendHttp.error }
-              sendData="SUCCESS"
+              message="SUCCESS"
             >
               <BarDelete usefetchLazyData={ sendHttp.useSendLazyData } />
             </Alerts>
-          )}
-          {isUpdate() && (
+          </TransitionEvent>
+          <TransitionEvent display={ isUpdate() } time={ 200 }>
             <Alerts
               isSuccess={ sendHttp.isSuccess }
               isError={ sendHttp.isError }
               error={ sendHttp.error }
-              sendData={ sendHttp.sendData }
+              message={ sendHttp.sendData }
             >
               <BarUpdate usefetchLazyData={ sendHttp.useSendLazyData } />
             </Alerts>
-          )}
-
+          </TransitionEvent>
         </div>
       </div>
-      <div className="m-4">
+      <TransitionEvent display={ isData(fetchHttp.fetchData.length > 0) } time={ 200 }>
         <Table
           data={ fetchHttp.fetchData }
+          useRefresh={ () => undefined }
         />
-      </div>
+      </TransitionEvent>
+      <Table data={ productsData } useRefresh={ fetchHttp.productsRefresh } />
+      <Table data={ salesData } useRefresh={ fetchHttp.salesRefresh } />
     </Window>
   );
 }

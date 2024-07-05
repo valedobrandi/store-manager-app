@@ -4,29 +4,28 @@ import { SerializedError } from '@reduxjs/toolkit';
 import SuccessAlert from '../SuccessAlert';
 import ErrorAlert from '../ErrorAlert';
 import useConditionalRendering from '../../Hooks/useConditionalRendering';
+import TransitionEvent from '../Transition';
 
 type AlertProps = {
   children: JSX.Element[] | ReactNode | string | boolean;
   isSuccess: boolean;
   isError: boolean;
   error: FetchBaseQueryError | SerializedError | undefined;
-  sendData: object | string;
+  message: object | string;
 };
 
 export default function Alerts(
-  { children, isSuccess, isError, error, sendData }: AlertProps,
+  { children, isSuccess, isError, error, message }: AlertProps,
 ) {
   const { isAlert } = useConditionalRendering();
 
   return (
     <div>
       {children}
-      {isAlert && (
-        <>
-          {isSuccess && <SuccessAlert message={ sendData } />}
-          {isError && <ErrorAlert message={ error } />}
-        </>
-      )}
+      <TransitionEvent display={ isAlert } time={ 0 }>
+        {isSuccess && <SuccessAlert message={ message } />}
+        {isError && <ErrorAlert message={ error } />}
+      </TransitionEvent>
     </div>
   );
 }

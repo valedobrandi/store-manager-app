@@ -1,6 +1,10 @@
+import { ProductFormType, SaleFormType,
+  UpdateProductFromSaleFormType } from '../../types/fetchButtonTypes';
+
 type ButtonPropsType = {
   name: string,
-  dispatch: (name?: string) => void;
+  dispatch: (querie?: string | ProductFormType | SaleFormType |
+  UpdateProductFromSaleFormType) => void;
   store?: string;
   btnType?: string;
 };
