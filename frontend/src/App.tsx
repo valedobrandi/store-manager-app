@@ -7,18 +7,20 @@ import EndPoints from './components/EndPoints';
 import SearchBar from './components/BarSearch';
 import useConditionalRendering from './Hooks/useConditionalRendering';
 import RegisterBar from './components/BarRegister';
-
 import BarDelete from './components/BarDelete';
 import BarUpdate from './components/BarUpdate';
 import useSendData from './Hooks/useSendData';
 import Alerts from './components/Alerts';
 import TransitionEvent from './components/Transition';
+import ButtonJoinGroup from './components/ButtonJoinGroup';
+import useCollapse from './Hooks/useCollapse';
 
 function App() {
-  const { isFetch, isRegister, isDelete, isUpdate, isData } = useConditionalRendering();
+  const { isFetch, isRegister, isDelete, isUpdate } = useConditionalRendering();
   const { sendHttp } = useSendData();
   const { fetchHttp, salesData, productsData } = useFetchProducts();
-
+  const { sales } = useCollapse();
+  const { products } = useCollapse();
   return (
     <Window>
       <h1 className="text-center text-black text-5xl">Data-Base Manager</h1>
@@ -68,14 +70,14 @@ function App() {
           </TransitionEvent>
         </div>
       </div>
-      <TransitionEvent display={ isData(fetchHttp.fetchData.length > 0) } time={ 200 }>
-        <Table
-          data={ fetchHttp.fetchData }
-          useRefresh={ () => undefined }
-        />
-      </TransitionEvent>
-      <Table data={ productsData } useRefresh={ fetchHttp.productsRefresh } />
-      <Table data={ salesData } useRefresh={ fetchHttp.salesRefresh } />
+      <Table data={ productsData } visible={ products.visible }>
+        <ButtonJoinGroup title="HIDE" onHandleClick={ products.onSetCollapse } />
+        <ButtonJoinGroup title="REFRESH" onHandleClick={ fetchHttp.productsRefresh } />
+      </Table>
+      <Table data={ salesData } visible={ sales.visible } key="sales">
+        <ButtonJoinGroup title="HIDE" onHandleClick={ sales.onSetCollapse } />
+        <ButtonJoinGroup title="REFRESH" onHandleClick={ fetchHttp.productsRefresh } />
+      </Table>
     </Window>
   );
 }

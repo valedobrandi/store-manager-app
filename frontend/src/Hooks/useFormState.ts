@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import useConditionalRendering from './useConditionalRendering';
 
 export default function useFormState() {
-  const { btnBadge } = useConditionalRendering();
   const [productForm, setProductForm] = useState({
     name: '',
     id: '',
@@ -31,8 +29,8 @@ export default function useFormState() {
   };
 
   const registerNewSaleForm = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { target } = event;
-    setSaleForm({ ...saleForm, [target.name]: target.value });
+/*     const { target } = event;
+    setSaleForm({ ...saleForm, [target.name]: target.value }); */
   };
 
   const updateProductFromSale = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,8 +41,7 @@ export default function useFormState() {
   };
 
   const addSaleItem = () => {
-    btnBadge(true);
-    setSaleItems({ saleItems: [...saleItems.saleItems, saleForm] });
+    /* setSaleItems({ saleItems: [...saleItems.saleItems, saleForm] }); */
   };
 
   return {
@@ -57,5 +54,6 @@ export default function useFormState() {
     addSaleItem,
     updateProductFromSaleForm,
     updateProductFromSale,
+    setSaleItems,
   };
 }

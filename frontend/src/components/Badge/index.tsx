@@ -7,7 +7,7 @@ export default function Badge({ btnBadge }: BadgeType) {
   return (
     <button
       onClick={ () => btnBadge(true) }
-      className="badge badge-warning gap-2 ml-[95%]"
+      className="badge badge-warning"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

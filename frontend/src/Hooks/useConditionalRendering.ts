@@ -16,7 +16,9 @@ export default function useConditionalRendering() {
   const { isAlert } = useSelector(
     (state: InitialStateType) => state.storeManager.storeSearch,
   );
-  const btnBadge = (param: boolean) => setClose(param);
+  const onCloseWindown = (render: boolean) => {
+    setClose(render);
+  };
   const isFetch = () => request === 'search';
   const isRegister = () => request === 'register';
   const isDelete = () => request === 'delete';
@@ -27,7 +29,7 @@ export default function useConditionalRendering() {
   const isData = (isSuccess: boolean) => isSuccess;
 
   return {
-    btnBadge,
+    onCloseWindown,
     close,
     isData,
     isFetch,

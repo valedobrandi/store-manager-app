@@ -18,7 +18,7 @@ export default function SearchBar({ usefetchLazyData }: SearchBarPops) {
   const { isFetch } = useConditionalRendering();
 
   return (
-    <div className="m-4">
+    <div className="flex m-4">
       {isFetch() && <SearchType />}
       <div>
         <Input

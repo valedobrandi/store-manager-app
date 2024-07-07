@@ -3,9 +3,7 @@ export type ProductFormType = {
   id: string;
 };
 
-export type SaleFormType = {
-  saleItems: { productId: string; quantity: string; }[];
-};
+export type SaleFormType = { saleItems: { productId: string; quantity: string; }[] };
 
 export type UpdateProductFromSaleFormType = {
   productId: string;
