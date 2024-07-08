@@ -6,7 +6,7 @@ const saleRoutes = require('./routes/sales.route');
 
 const corsOptions = {
   credentials: true,
-  origin: ['http://localhost:5174'], // Substitua pela origem correta do seu frontend
+  origin: ['http://localhost:5174', 'http://localhost:5175'], // Substitua pela origem correta do seu frontend
 };
 
 const app = express();

@@ -46,7 +46,6 @@ const update = async (req, res, next) => {
     const { saleId, productId } = req.params;
     const { body } = req;
     const { status, data } = await salesService.updateProductSaleQuantity(saleId, productId, body);
-  
     return res.status(mapStatusHTTP(status)).json(data);
   } catch (error) {
     next(error);

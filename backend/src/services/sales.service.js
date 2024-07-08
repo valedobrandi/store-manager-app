@@ -56,7 +56,7 @@ const deleteSale = async (saleId) => {
 
 const updateProductSaleQuantity = async (saleId, productId, body) => {
   const error = serviceValidate.validateUpdateSalesProducts(body);
-  
+
   if (error) {
     return { status: error.status, data: { message: error.message } };
   }

@@ -31,7 +31,7 @@ const registerSales = async (newSale) => {
     'INSERT INTO sales (id, date) VALUES (DEFAULT, DEFAULT);',
   );
  
-  const  id = ResultSetHeader.insertId;
+  const id = ResultSetHeader.insertId;
   const [saleKeys] = newSale;
   const newSaleInsert = newSale.map((sale) => ({ saleId: id, ...sale })); 
   const saleQuery = { saleId: id, ...saleKeys };

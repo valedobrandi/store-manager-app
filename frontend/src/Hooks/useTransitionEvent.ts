@@ -11,7 +11,7 @@ export default function useTransitionEvent(
       setTimeout(() => setRender(true), time);
     }
     if (!display && render) {
-      setTimeout(() => setRender(false), time);
+      setTimeout(() => setRender(false), time + 200);
     }
     return () => {
       clearTimeout(setTimeout(() => 0));

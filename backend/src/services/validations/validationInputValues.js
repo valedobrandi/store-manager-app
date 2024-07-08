@@ -5,6 +5,11 @@ const validateRegisterProduct = (keysObjectToValidate) => {
   if (error) return { status: 'INVALID_VALUE', message: error.message };
 };
 
+const validateUpdateProduct = (keysObjectToValidate) => {
+  const { error } = schema.updateProduct.validate(keysObjectToValidate);
+  if (error) return { status: 'INVALID_VALUE', message: error.message };
+};
+
 const validateRegisterSales = (keysObjectToValidate) => {
   for (let index = 0; index < keysObjectToValidate.length; index += 1) {
     const { error } = schema.registerSale.validate(keysObjectToValidate[index]);
@@ -21,4 +26,5 @@ module.exports = {
   validateRegisterProduct,
   validateRegisterSales,
   validateUpdateSalesProducts,
+  validateUpdateProduct,
 };

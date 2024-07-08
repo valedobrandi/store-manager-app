@@ -6,6 +6,7 @@ services:
       - 5173:5173
     volumes:
       - ./frontend/src:/app/src
+      - ./frontend/tests:/app/tests
   backend:
     build: backend
     container_name: store_manager

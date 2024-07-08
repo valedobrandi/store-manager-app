@@ -25,7 +25,7 @@ export default function useFetchData() {
   SaleFormType | UpdateProductFromSaleFormType | undefined) => {
     dispatchDisplayAlert(true);
     const URL = getRoute(fetch, route, request, queries);
-    fetchTrigger(URL);
+    if (typeof URL === 'string') return fetchTrigger(URL);
   };
 
   const fetchHttp = {

@@ -28,7 +28,7 @@ const registerProduct = async (newProduct) => {
 };
 
 const updateProduct = async (update, productId) => {
-  const error = serviceValidate.validateRegisterProduct(update);
+  const error = serviceValidate.validateUpdateProduct(update);
   if (error) {
     return { status: error.status, data: { message: error.message } };
   }
