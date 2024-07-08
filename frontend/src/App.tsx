@@ -2,8 +2,6 @@
 import Window from './components/Window';
 import useFetchProducts from './Hooks/useFetchData';
 import Table from './components/Table';
-import HTTPMethods from './components/HTTPMethods';
-import EndPoints from './components/EndPoints';
 import SearchBar from './components/BarSearch';
 import useConditionalRendering from './Hooks/useConditionalRendering';
 import RegisterBar from './components/BarRegister';
@@ -16,29 +14,27 @@ import ButtonJoinGroup from './components/ButtonJoinGroup';
 import useCollapse from './Hooks/useCollapse';
 
 function App() {
-  const { isFetch, isRegister, isDelete, isUpdate } = useConditionalRendering();
+  const { typeRequest } = useConditionalRendering();
   const { sendHttp } = useSendData();
   const { fetchHttp, salesData, productsData } = useFetchProducts();
-  const { sales } = useCollapse();
-  const { products } = useCollapse();
+  const { onSetCollapse: onSetCollapseProduct, visible: visibleProduct } = useCollapse();
+  const { onSetCollapse: onSetCollapseSale, visible: visibleSale } = useCollapse();
+
   return (
-    <Window>
-      <h1 className="text-center text-black text-5xl">Data-Base Manager</h1>
+    <Window usefetchLazyData={ fetchHttp.usefetchLazyData }>
       <div className="flex flex-col m-1">
-        <EndPoints />
-        <HTTPMethods />
         <div className="">
-          <TransitionEvent display={ isFetch() } time={ 100 }>
+          <TransitionEvent display={ typeRequest('search') } time={ 0 }>
             <Alerts
               isSuccess={ fetchHttp.isSuccess }
               isError={ fetchHttp.isError }
               error={ fetchHttp.error }
               message="SUCCESS"
             >
-              <SearchBar usefetchLazyData={ fetchHttp.usefetchLazyData } />
+              <SearchBar searchData={ fetchHttp.fetchData } />
             </Alerts>
           </TransitionEvent>
-          <TransitionEvent display={ isRegister() } time={ 200 }>
+          <TransitionEvent display={ typeRequest('register') } time={ 0 }>
             <Alerts
               isSuccess={ sendHttp.isSuccess }
               isError={ sendHttp.isError }
@@ -48,7 +44,7 @@ function App() {
               <RegisterBar usefetchLazyData={ sendHttp.useSendLazyData } />
             </Alerts>
           </TransitionEvent>
-          <TransitionEvent display={ isDelete() } time={ 200 }>
+          <TransitionEvent display={ typeRequest('delete') } time={ 0 }>
             <Alerts
               isSuccess={ sendHttp.isSuccess }
               isError={ sendHttp.isError }
@@ -58,7 +54,7 @@ function App() {
               <BarDelete usefetchLazyData={ sendHttp.useSendLazyData } />
             </Alerts>
           </TransitionEvent>
-          <TransitionEvent display={ isUpdate() } time={ 200 }>
+          <TransitionEvent display={ typeRequest('update') } time={ 0 }>
             <Alerts
               isSuccess={ sendHttp.isSuccess }
               isError={ sendHttp.isError }
@@ -70,13 +66,13 @@ function App() {
           </TransitionEvent>
         </div>
       </div>
-      <Table data={ productsData } visible={ products.visible }>
-        <ButtonJoinGroup title="HIDE" onHandleClick={ products.onSetCollapse } />
+      <Table data={ productsData } visible={ visibleProduct }>
+        <ButtonJoinGroup title="HIDE" onHandleClick={ onSetCollapseProduct } />
         <ButtonJoinGroup title="REFRESH" onHandleClick={ fetchHttp.productsRefresh } />
       </Table>
-      <Table data={ salesData } visible={ sales.visible } key="sales">
-        <ButtonJoinGroup title="HIDE" onHandleClick={ sales.onSetCollapse } />
-        <ButtonJoinGroup title="REFRESH" onHandleClick={ fetchHttp.productsRefresh } />
+      <Table data={ salesData } visible={ visibleSale } key="sales">
+        <ButtonJoinGroup title="HIDE" onHandleClick={ onSetCollapseSale } />
+        <ButtonJoinGroup title="REFRESH" onHandleClick={ fetchHttp.salesRefresh } />
       </Table>
     </Window>
   );

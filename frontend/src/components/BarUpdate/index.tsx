@@ -9,7 +9,7 @@ import Label from '../Label';
 
 type BarUpdatePops = {
   usefetchLazyData: (query: ProductFormType |
-  SaleFormType | UpdateProductFromSaleFormType) => void
+  SaleFormType | UpdateProductFromSaleFormType | undefined) => void
 };
 
 export default function BarUpdate({ usefetchLazyData }: BarUpdatePops) {
@@ -17,11 +17,11 @@ export default function BarUpdate({ usefetchLazyData }: BarUpdatePops) {
     productForm, updateProductForm, updateProductFromSale, updateProductFromSaleForm,
   } = useFormState();
   const { isInputEmpty } = useDisableStatus();
-  const { isProducts, isSales } = useConditionalRendering();
+  const { typeRoute } = useConditionalRendering();
 
   return (
     <div className="m-4">
-      {isProducts() && (
+      {typeRoute('products') && (
         <>
           <Label title="ID">
             <Input
@@ -47,7 +47,7 @@ export default function BarUpdate({ usefetchLazyData }: BarUpdatePops) {
             isDisabled={ isInputEmpty(productForm.id) }
           />
         </>)}
-      {isSales() && (
+      {typeRoute('sales') && (
         <>
           <Label title="SALE ID">
             <Input

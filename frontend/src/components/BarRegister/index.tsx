@@ -21,14 +21,14 @@ type RegisterBarPops = {
 
 export default function RegisterBar({ usefetchLazyData }: RegisterBarPops) {
   const { productForm, updateProductForm } = useFormState();
-  const { isSales, isProducts, isItemList } = useConditionalRendering();
+  const { isItemList, typeRoute } = useConditionalRendering();
   const { close, onCloseWindown } = useConditionalRendering();
   const { isArrayEmpty, isSaleForm } = useButtonStatus();
   const { onDispatch, reduxStore } = useDispatchs();
-  const { sales } = useCollapse();
+  const { visible, onSetCollapse } = useCollapse();
   return (
     <div>
-      {isProducts() && (
+      {typeRoute('products') && (
         <div className="ml-4 mr-4">
           <Label title="NAME">
             <Input
@@ -45,7 +45,7 @@ export default function RegisterBar({ usefetchLazyData }: RegisterBarPops) {
           />
         </div>
       )}
-      {isSales() && (
+      {typeRoute('sales') && (
         <>
           <div className="m-4">
             <Label title="PRODUCT ID">
@@ -76,9 +76,7 @@ export default function RegisterBar({ usefetchLazyData }: RegisterBarPops) {
               title="REGISTER"
               input={ { saleItems: reduxStore.itemsList } }
               usefetchLazyData={
-              () => {
-                /* usefetchLazyData({ saleItems: reduxStore.itemsList }); */
-              }
+              () => { usefetchLazyData({ saleItems: reduxStore.itemsList }); }
             }
               isDisabled={ isArrayEmpty(reduxStore.itemsList.length) }
             />
@@ -87,15 +85,14 @@ export default function RegisterBar({ usefetchLazyData }: RegisterBarPops) {
             <Table
               data={ reduxStore.itemsList }
               close={ close }
-              visible={ sales.visible }
+              visible={ visible }
+              icon
             >
-              <ButtonJoinGroup title="HIDE" onHandleClick={ sales.onSetCollapse } />
+              <ButtonJoinGroup title="HIDE" onHandleClick={ onSetCollapse } />
               <ButtonJoinGroup
                 title="CLEAR"
                 color="text-red-600 btn-warning"
-                onHandleClick={
-                   () => { onDispatch.clearSaleList(); }
-}
+                onHandleClick={ () => { onDispatch.clearSaleList(); } }
               />
             </Table>
           )}

@@ -1,38 +1,31 @@
+import useCollapse from '../../Hooks/useCollapse';
 import useConditionalRendering from '../../Hooks/useConditionalRendering';
-import useFormState from '../../Hooks/useFormState';
-import useRoutesOptions from '../../Hooks/useRoutesOptions';
-import { ProductFormType, SaleFormType,
-  UpdateProductFromSaleFormType } from '../../types/fetchButtonTypes';
-import FetchButton from '../FetchButton';
-import Input from '../Input';
-import SearchType from '../SearchType';
+import ButtonJoinGroup from '../ButtonJoinGroup';
+import Table from '../Table';
 
 type SearchBarPops = {
-  usefetchLazyData: (query: ProductFormType |
-  SaleFormType | UpdateProductFromSaleFormType) => void
+  searchData: [] | object[];
 };
 
-export default function SearchBar({ usefetchLazyData }: SearchBarPops) {
-  const { productForm, updateProductForm } = useFormState();
-  const { fetch } = useRoutesOptions();
-  const { isFetch } = useConditionalRendering();
+export default function SearchBar({ searchData }: SearchBarPops) {
+  const { close, onCloseWindown } = useConditionalRendering();
+  const { onSetCollapse, visible } = useCollapse();
 
   return (
-    <div className="flex m-4">
-      {isFetch() && <SearchType />}
-      <div>
-        <Input
-          name={ fetch }
-          setInput={ updateProductForm }
-          input={ productForm }
-          key="search"
-        />
-        <FetchButton
-          title="SEARCH"
-          input={ productForm }
-          usefetchLazyData={ usefetchLazyData }
-        />
-      </div>
+    <div>
+      {searchData.length > 0 && (
+        <Table
+          data={ searchData }
+          close={ close }
+          visible={ visible }
+        >
+          <ButtonJoinGroup title="HIDE" onHandleClick={ onSetCollapse } />
+          <ButtonJoinGroup
+            title="CLOSE"
+            color="text-red-600 btn-warning"
+            onHandleClick={ () => { onCloseWindown(true); } }
+          />
+        </Table>)}
     </div>
 
   );

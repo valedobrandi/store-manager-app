@@ -16,8 +16,8 @@ type InputProps = {
 export default function Input({ setInput, input, width = 'max-w-96', name }: InputProps) {
   return (
     <input
-      className={ `input
-        input-bordered
+      className={ `
+        input
         join-item
         text-black
         text-center

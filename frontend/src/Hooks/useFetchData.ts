@@ -22,7 +22,7 @@ export default function useFetchData() {
   const fetchData = !Array.isArray(data) ? [data] : data;
 
   const usefetchLazyData = (queries: ProductFormType |
-  SaleFormType | UpdateProductFromSaleFormType) => {
+  SaleFormType | UpdateProductFromSaleFormType | undefined) => {
     dispatchDisplayAlert(true);
     const URL = getRoute(fetch, route, request, queries);
     fetchTrigger(URL);

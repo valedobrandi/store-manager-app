@@ -5,7 +5,7 @@ export default function SearchType() {
   const { btnSearch, fetch, dispatchSelectFetch } = useRoutesOptions();
 
   return (
-    <div>
+    <div className="mr-1">
       {
         btnSearch.map((value) => (
           <Button

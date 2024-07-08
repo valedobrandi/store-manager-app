@@ -8,12 +8,16 @@ type ErrorAlertProps = {
 
 export default function ErrorAlert({ message }: ErrorAlertProps) {
   const { data } = message as FetchBaseQueryError;
-  const { dispatchDisplayAlert, isAlert } = useConditionalRendering();
+  const { dispatchDisplayAlert } = useConditionalRendering();
   console.log(data);
 
   const errorMessage = data.message.toUpperCase() || '';
   return (
-    <div role="alert" className="alert alert-error ml-4 w-[30rem]">
+    <div
+      role="alert"
+      className="alert bg-transparent border-none
+     ml-4 w-fit font-Poppins text-red-700"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6 shrink-0 stroke-current"
@@ -31,8 +35,8 @@ export default function ErrorAlert({ message }: ErrorAlertProps) {
         <span>{errorMessage}</span>
       </div>
       <button
-        className="btn btn-sm"
-        onClick={ () => dispatchDisplayAlert(!isAlert) }
+        className="btn btn-xs"
+        onClick={ () => dispatchDisplayAlert(true) }
       >
         X
       </button>

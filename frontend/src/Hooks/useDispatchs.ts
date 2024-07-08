@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, newSale, CLEAR_SALE_LIST } from '../redux/reducers/storeManager';
+import { addItem, newSale,
+  CLEAR_SALE_LIST, DELETE_ITEM_SALE_LIST } from '../redux/reducers/storeManager';
 import { InitialStateType } from '../types/reduxState';
 
 type EventType = React.ChangeEvent<HTMLInputElement>;
@@ -13,6 +14,7 @@ export default function useDispatchs() {
       { name: target.name, value: target.value },
     )),
     clearSaleList: () => dispatch(CLEAR_SALE_LIST()),
+    deleteItemSaleList: (id: string) => dispatch(DELETE_ITEM_SALE_LIST(id)),
   };
 
   const { itemsList, saleItem } = useSelector(

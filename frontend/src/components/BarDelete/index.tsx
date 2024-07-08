@@ -8,7 +8,7 @@ import Label from '../Label';
 
 type BarDeletePops = {
   usefetchLazyData: (query: ProductFormType |
-  SaleFormType | UpdateProductFromSaleFormType) => void
+  SaleFormType | UpdateProductFromSaleFormType | undefined) => void
 };
 
 export default function BarDelete({ usefetchLazyData }: BarDeletePops) {

@@ -9,8 +9,8 @@ const intialState = {
     isAlert: false,
   },
   registerSaleItemnsList: {
-    itemsList: [] as { productId: string; quantity: string; }[],
-    saleItem: { productId: '', quantity: '' },
+    itemsList: [] as { productId: string; quantity: number; }[],
+    saleItem: { productId: '', quantity: 0 },
   },
 };
 
@@ -19,12 +19,15 @@ const storeManagerSlice = createSlice({
   initialState: intialState,
   reducers: {
     selectRoute: (state, action) => {
+      state.storeSearch.isAlert = false;
       state.storeSearch.route = action.payload.route;
     },
     selectRequest: (state, action) => {
+      state.storeSearch.isAlert = false;
       state.storeSearch.request = action.payload.request;
     },
     selectFetch: (state, action) => {
+      state.storeSearch.isAlert = false;
       state.storeSearch.fetch = action.payload.fetch;
     },
     selectId: (state, action) => {
@@ -35,24 +38,28 @@ const storeManagerSlice = createSlice({
     },
     addItem: (state) => {
       const { saleItem } = state.registerSaleItemnsList;
-      let { itemsList } = state.registerSaleItemnsList;
+      const { itemsList } = state.registerSaleItemnsList;
       const findItem = itemsList.find((item) => item.productId === saleItem.productId);
+
       if (!findItem) itemsList.push(saleItem);
       if (findItem) {
-        /*        const addQuantity = { ...saleItem,
-          quantity: saleItem.quantity + findItem.quantity }; */
-        itemsList = itemsList.map((item) => {
+        const update = itemsList.map((item) => {
           if (item.productId === findItem.productId) {
-            return { ...saleItem,
-              quantity: saleItem.quantity + findItem.quantity };
+            return { ...item,
+              quantity: Number(saleItem.quantity) + Number(findItem.quantity) };
           }
           return item;
         });
+        state.registerSaleItemnsList.itemsList = update;
       }
-      itemsList.push(saleItem);
     },
     CLEAR_SALE_LIST: (state) => {
       state.registerSaleItemnsList.itemsList = [];
+    },
+    DELETE_ITEM_SALE_LIST: (state, action) => {
+      const { itemsList } = state.registerSaleItemnsList;
+      state.registerSaleItemnsList.itemsList = itemsList
+        .filter((item) => item.productId !== action.payload);
     },
     newSale: (state, action) => {
       const saleItem = {
@@ -73,5 +80,6 @@ export const {
   addItem,
   newSale,
   CLEAR_SALE_LIST,
+  DELETE_ITEM_SALE_LIST,
 } = storeManagerSlice.actions;
 export default storeManagerSlice.reducer;

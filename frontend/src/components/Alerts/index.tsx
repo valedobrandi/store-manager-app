@@ -20,12 +20,12 @@ export default function Alerts(
   const { isAlert } = useConditionalRendering();
 
   return (
-    <div>
-      {children}
+    <div className="flex items-center flex-wrap">
       <TransitionEvent display={ isAlert } time={ 0 }>
         {isSuccess && <SuccessAlert message={ message } />}
         {isError && <ErrorAlert message={ error } />}
       </TransitionEvent>
+      {children}
     </div>
   );
 }

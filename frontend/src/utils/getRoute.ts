@@ -1,10 +1,16 @@
+import { RouteOptionsType } from '../types/routeOptions';
+
 /* eslint-disable react-func/max-lines-per-function */
 export default function getRoute(
   fetch: 'all' | 'id' | 'name' | '',
   route: 'sales' | 'products',
   request: 'search' | 'register' | 'update' | 'delete',
-  params: { name?: string, id?: string, productId?: string,
-    saleId?: string, quantity?: string;
+  params: {
+    name?: string,
+    id?: string,
+    productId?: string,
+    saleId?: string,
+    quantity?: string;
     saleItems?: { productId: string; quantity: string; }[] } | undefined,
 
 ) {
@@ -12,7 +18,7 @@ export default function getRoute(
 
   fetch = request !== 'search' ? '' : fetch;
 
-  const ROUTES_OPTIONS = {
+  const ROUTES_OPTIONS: RouteOptionsType = {
     sales: {
       search: {
         all: '/sales',
@@ -63,7 +69,8 @@ export default function getRoute(
       },
     },
   };
-
+  if (!ROUTES_OPTIONS[route]) return;
+  if (!ROUTES_OPTIONS[route][request]) return;
   if (fetch === '') return ROUTES_OPTIONS[route][request];
   if (request === 'search') return ROUTES_OPTIONS[route][request][fetch];
 }

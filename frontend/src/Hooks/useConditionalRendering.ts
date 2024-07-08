@@ -19,12 +19,9 @@ export default function useConditionalRendering() {
   const onCloseWindown = (render: boolean) => {
     setClose(render);
   };
-  const isFetch = () => request === 'search';
-  const isRegister = () => request === 'register';
-  const isDelete = () => request === 'delete';
-  const isUpdate = () => request === 'update';
-  const isSales = () => route === 'sales';
-  const isProducts = () => route === 'products';
+  const typeRequest = (title: string) => request === title;
+  const typeRoute = (title: string) => route === title;
+
   const isItemList = (saleItems: number) => saleItems > 0;
   const isData = (isSuccess: boolean) => isSuccess;
 
@@ -32,13 +29,9 @@ export default function useConditionalRendering() {
     onCloseWindown,
     close,
     isData,
-    isFetch,
-    isRegister,
-    isDelete,
-    isUpdate,
+    typeRequest,
     isAlert,
-    isSales,
-    isProducts,
+    typeRoute,
     isItemList,
     dispatchDisplayAlert,
   };
