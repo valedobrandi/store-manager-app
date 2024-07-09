@@ -7,11 +7,11 @@ type ErrorAlertProps = {
 };
 
 export default function ErrorAlert({ message }: ErrorAlertProps) {
-  const { data } = message as FetchBaseQueryError;
+  const { data } = message as { data: { message: string } };
   const { dispatchDisplayAlert } = useConditionalRendering();
-  console.log(data);
 
   const errorMessage = data.message.toUpperCase() || '';
+
   return (
     <div
       role="alert"

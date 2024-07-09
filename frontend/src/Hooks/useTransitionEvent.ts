@@ -8,10 +8,10 @@ export default function useTransitionEvent(
 
   useEffect(() => {
     if (display && !render) {
-      setTimeout(() => setRender(true), time);
+      setTimeout(() => setRender(true), time + 100);
     }
     if (!display && render) {
-      setTimeout(() => setRender(false), time + 200);
+      setTimeout(() => setRender(false), time);
     }
     return () => {
       clearTimeout(setTimeout(() => 0));

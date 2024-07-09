@@ -21,11 +21,11 @@ export default function Alerts(
 
   return (
     <div className="flex items-center flex-wrap">
+      {children}
       <TransitionEvent display={ isAlert } time={ 0 }>
         {isSuccess && <SuccessAlert message={ message } />}
         {isError && <ErrorAlert message={ error } />}
       </TransitionEvent>
-      {children}
     </div>
   );
 }

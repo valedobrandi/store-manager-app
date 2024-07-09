@@ -32,10 +32,10 @@ export default function SuccessAlert({ message = {} }: SuccessAlertProps) {
         <span>{successMessage}</span>
       </div>
       <button
-        className="btn btn-sm"
+        className="btn btn-sm bg-transparent border-none"
         onClick={ () => dispatchDisplayAlert(!isAlert) }
       >
-        X
+        close
       </button>
     </div>
   );
