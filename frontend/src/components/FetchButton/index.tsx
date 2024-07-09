@@ -16,7 +16,7 @@ export default function FetchButton({
   input = undefined, isDisabled = false }: FetchButtonProps) {
   return (
     <button
-      className={ `btn btn-outline btn-${btnType} uppercase m-1 ${size}` }
+      className={ `btn btn-outline btn-${btnType} uppercase ml-2 ${size}` }
       onClick={ () => usefetchLazyData(input) }
       disabled={ isDisabled }
     >

@@ -15,7 +15,6 @@ type TableProps = {
 export default function Table({ data, visible = '',
   children = null, close = false, icon = false }: TableProps) {
   const { onDispatch } = useDispatchs();
-
   return (
     <div className={ `${close ? 'hidden' : ''} m-4` }>
       <div className="mb-8">

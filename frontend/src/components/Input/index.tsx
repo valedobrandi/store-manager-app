@@ -15,6 +15,7 @@ type InputProps = {
 
 export default function Input({ setInput, input, width = 'max-w-96', name }: InputProps) {
   return (
+
     <input
       className={ `
         input
@@ -26,7 +27,7 @@ export default function Input({ setInput, input, width = 'max-w-96', name }: Inp
         h-[3.1rem]` }
       name={ name }
       onChange={ (event) => setInput(event) }
-      value={ input[name] }
+      value={ input[name] ? input[name] : '' }
     />
   );
 }

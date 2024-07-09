@@ -12,7 +12,7 @@ export default function SuccessAlert({ message = {} }: SuccessAlertProps) {
   return (
     <div
       role="alert"
-      className="alert bg-transparent border-noneml-4
+      className="alert bg-transparent border-none ml-4
        w-fit font-Poppins text-green-700"
     >
       <svg
